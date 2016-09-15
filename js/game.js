@@ -74,7 +74,7 @@ window.onclick = function(e){
         }else if(t.id == "warrior"){
             Game._type = "warrior";
         }
-        document.body.innerHTML = "";
+        document.getElementById("tbl_select").remove();
         Game.init();
         document.body.appendChild(Game.getDisplay().getContainer());
         Game.switchScreen(Game.Screen.startScreen);

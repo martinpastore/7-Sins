@@ -8,7 +8,6 @@ body {
 canvas {
 	display: block;
 	margin: auto;
-	margin-top: 200px !important;
 	opacity: 1;
 	-webkit-transition: opacity 3s;
 	-moz-transition: opacity 3s;
