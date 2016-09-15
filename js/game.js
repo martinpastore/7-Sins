@@ -21,8 +21,6 @@ var Game = {
             window.addEventListener(event, function(e){
                 if(game._currentScreen !== null){
                     game._currentScreen.handleInput(event, e);
-                    //document.body.innerHTML = "";
-                    //document.body.appendChild(self._display.getContainer());//agregado 14/09, ver error
                 }
             });
         }
@@ -63,10 +61,11 @@ var Game = {
     }
 }
 
-window.onload = function(){
+window.onclick = function(){
     if(!ROT.isSupported()){
         console.log("This browser don't support ROT.JS");
     }else{
+        document.body.innerHTML = "";
         Game.init();
         document.body.appendChild(Game.getDisplay().getContainer());
         Game.switchScreen(Game.Screen.startScreen);

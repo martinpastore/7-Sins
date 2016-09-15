@@ -16,10 +16,6 @@ canvas {
 	transition: opacity 3s;
 }
 
-body.intro canvas {
-	opacity: 0;
-}
-
 pre, pre a {
 	color: mediumpurple;
 	font-weight: bold;
