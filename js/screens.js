@@ -27,13 +27,21 @@ Game.Screen.playScreen = {
     _name: 'PlayScreen',
     _gameEnded: false,
     _subScreen: null,
-    enter: function() {
+    enter: function(type) {
         var width = 100;
         var height = 48;
         var depth = 6;
 
         var tiles = new Game.Builder(width, height, depth).getTiles();
-        this._player = new Game.Entity(Game.PlayerTemplate);
+        if(type == "mage"){
+            this._player = new Game.Entity(Game.MageTemplate);
+        }else if(type == "archer"){
+            this._player = new Game.Entity(Game.ArcherTemplate);
+        }else if(type == "necro"){
+            this._player = new Game.Entity(Game.NecroTemplate);
+        }else{
+            this._player = new Game.Entity(Game.WarriorTemplate);
+        }
         this._map = new Game.Map(tiles, this._player);
 
         this._map.getEngine().start();

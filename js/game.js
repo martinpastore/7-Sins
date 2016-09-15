@@ -1,16 +1,13 @@
 /**
  * Created by bocha on 03/09/2016.
  */
-var tileSet = document.createElement("img");
-tileSet.src = "img/tiles.png";
-
-
 var Game = {
     _display: null,
     _displayStartScreen: null,
     _currentScreen: null,
     _screenWidth: 80,
     _screenHeight: 24,
+    _type: null,
 
     init: function(){
         var self = this;
@@ -47,7 +44,8 @@ var Game = {
 
         this._currentScreen = screen;
         if(!this._currentScreen !== null){
-            this._currentScreen.enter();
+            console.log(this._type);
+            this._currentScreen.enter(this._type);
             this.refresh();
         }
     },
@@ -61,10 +59,21 @@ var Game = {
     }
 }
 
-window.onclick = function(){
+window.onclick = function(e){
+    console.log("GameInit::Click");
     if(!ROT.isSupported()){
         console.log("This browser don't support ROT.JS");
     }else{
+        var t = e.target;
+        if(t.id == "mage"){
+            Game._type = "mage";
+        }else if(t.id == "archer"){
+            Game._type = "archer";
+        }else if(t.id == "necro"){
+            Game._type = "necro";
+        }else if(t.id == "warrior"){
+            Game._type = "warrior";
+        }
         document.body.innerHTML = "";
         Game.init();
         document.body.appendChild(Game.getDisplay().getContainer());

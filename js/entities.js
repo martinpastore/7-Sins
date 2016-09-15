@@ -259,8 +259,48 @@ Game.sendMessageNearby = function(map, centerX, centerY, centerZ, message, args)
 
 Game.PlayerTemplate = {
     character: '@',
-    foreground: '#DA81F5',
+    foreground: 'white',
     maxHp: 40,
+    attackValue: 10,
+    sightRadius: 6,
+    mixins: [Game.Mixins.PlayerActor, Game.Mixins.Attacker, Game.Mixins.InventoryHolder,
+            Game.Mixins.Destructible, Game.Mixins.Sight, Game.Mixins.MessageRecipient]
+}
+
+Game.WarriorTemplate = {
+    character: '@',
+    foreground: 'blue',
+    maxHp: 60,
+    attackValue: 8,
+    sightRadius: 6,
+    mixins: [Game.Mixins.PlayerActor, Game.Mixins.Attacker, Game.Mixins.InventoryHolder,
+            Game.Mixins.Destructible, Game.Mixins.Sight, Game.Mixins.MessageRecipient]
+}
+
+Game.MageTemplate = {
+    character: '@',
+    foreground: 'red',
+    maxHp: 20,
+    attackValue: 10,
+    sightRadius: 6,
+    mixins: [Game.Mixins.PlayerActor, Game.Mixins.Attacker, Game.Mixins.InventoryHolder,
+            Game.Mixins.Destructible, Game.Mixins.Sight, Game.Mixins.MessageRecipient]
+}
+
+Game.ArcherTemplate = {
+    character: '@',
+    foreground: 'green',
+    maxHp: 25,
+    attackValue: 9,
+    sightRadius: 6,
+    mixins: [Game.Mixins.PlayerActor, Game.Mixins.Attacker, Game.Mixins.InventoryHolder,
+            Game.Mixins.Destructible, Game.Mixins.Sight, Game.Mixins.MessageRecipient]
+}
+
+Game.NecroTemplate = {
+    character: '@',
+    foreground: '#DA81F5',
+    maxHp: 20,
     attackValue: 10,
     sightRadius: 6,
     mixins: [Game.Mixins.PlayerActor, Game.Mixins.Attacker, Game.Mixins.InventoryHolder,
