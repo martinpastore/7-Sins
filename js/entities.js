@@ -55,7 +55,14 @@ Game.Mixins.Destructible = {
       return this._maxHp;
     },
     getDefenseValue: function(){
-      return this._defenseValue;
+      var modifier = 0;
+
+      if(this.hasMixin(Game.Mixins.Equipper)){
+        if(this.getArmor()){
+            modifier += this.getArmor().getDefenseValue();
+        }
+      }  
+      return this._defenseValue + modifier;
     },
     takeDamage: function(attacker, damage){
         this._hp -= damage;
@@ -119,7 +126,14 @@ Game.Mixins.Attacker = {
         this._attackValue = template['attackValue'] || 1;
     },
     getAttackValue: function(){
-        return this._attackValue;
+        var modifier = 0;
+
+        if(this.hasMixin(Game.Mixins.Equipper)){
+            if(this.getWeapon()){
+                modifier += this.getWeapon().getAttackValue();
+            }
+        }
+        return this._attackValue + modifier;
     },
     attack: function(target){
         if(target.hasMixin('Destructible')){
@@ -199,6 +213,9 @@ Game.Mixins.InventoryHolder = {
         return false;
     },
     removeItem: function(i){
+        if(this._items[i] && this.hasMixin(Game.Mixins.Equipper)){
+            this.unequip(this._items[i]);
+        }
         this._items[i] = null;
     },
     canAddItem: function(){
@@ -234,6 +251,40 @@ Game.Mixins.InventoryHolder = {
     }
 }
 
+Game.Mixins.Equipper = {
+    name: 'Equipper',
+    init: function(template){
+        this._weapon = null;
+        this._armor = null;
+    },
+    wield: function(item){
+        this._weapon = item;
+    },
+    unwield: function(){
+        this._weapon = null;
+    },
+    wear: function(item){
+        this._armor = item;
+    },
+    takeOff: function(){
+        this._armor = null;
+    },
+    getWeapon: function(){
+        return this._weapon;
+    },
+    getArmor: function(){
+        return this._armor;
+    },
+    unequip: function(item){
+        if(this._weapon === item){
+            this.unwield();
+        }
+        if(this._armor === item){
+            this.takeOff();
+        }
+    }
+}
+
 Game.sendMessage = function(recipient, message, args){
     if(recipient.hasMixin(Game.Mixins.MessageRecipient)){
         if(args){
@@ -264,7 +315,7 @@ Game.PlayerTemplate = {
     attackValue: 10,
     sightRadius: 6,
     mixins: [Game.Mixins.PlayerActor, Game.Mixins.Attacker, Game.Mixins.InventoryHolder,
-            Game.Mixins.Destructible, Game.Mixins.Sight, Game.Mixins.MessageRecipient]
+            Game.Mixins.Destructible, Game.Mixins.Sight, Game.Mixins.MessageRecipient, Game.Mixins.Equipper]
 }
 
 Game.WarriorTemplate = {
@@ -274,7 +325,7 @@ Game.WarriorTemplate = {
     attackValue: 8,
     sightRadius: 6,
     mixins: [Game.Mixins.PlayerActor, Game.Mixins.Attacker, Game.Mixins.InventoryHolder,
-            Game.Mixins.Destructible, Game.Mixins.Sight, Game.Mixins.MessageRecipient]
+            Game.Mixins.Destructible, Game.Mixins.Sight, Game.Mixins.MessageRecipient, Game.Mixins.Equipper]
 }
 
 Game.MageTemplate = {
@@ -284,7 +335,7 @@ Game.MageTemplate = {
     attackValue: 10,
     sightRadius: 6,
     mixins: [Game.Mixins.PlayerActor, Game.Mixins.Attacker, Game.Mixins.InventoryHolder,
-            Game.Mixins.Destructible, Game.Mixins.Sight, Game.Mixins.MessageRecipient]
+            Game.Mixins.Destructible, Game.Mixins.Sight, Game.Mixins.MessageRecipient, Game.Mixins.Equipper]
 }
 
 Game.ArcherTemplate = {
@@ -294,7 +345,7 @@ Game.ArcherTemplate = {
     attackValue: 9,
     sightRadius: 6,
     mixins: [Game.Mixins.PlayerActor, Game.Mixins.Attacker, Game.Mixins.InventoryHolder,
-            Game.Mixins.Destructible, Game.Mixins.Sight, Game.Mixins.MessageRecipient]
+            Game.Mixins.Destructible, Game.Mixins.Sight, Game.Mixins.MessageRecipient, Game.Mixins.Equipper]
 }
 
 Game.NecroTemplate = {
@@ -304,7 +355,7 @@ Game.NecroTemplate = {
     attackValue: 10,
     sightRadius: 6,
     mixins: [Game.Mixins.PlayerActor, Game.Mixins.Attacker, Game.Mixins.InventoryHolder,
-            Game.Mixins.Destructible, Game.Mixins.Sight, Game.Mixins.MessageRecipient]
+            Game.Mixins.Destructible, Game.Mixins.Sight, Game.Mixins.MessageRecipient, Game.Mixins.Equipper]
 }
 
 Game.EntityRepository = new Game.Repository('entities', Game.Entity);

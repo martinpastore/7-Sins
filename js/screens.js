@@ -179,6 +179,24 @@ Game.Screen.playScreen = {
                     this.setSubScreen(Game.Screen.dropScreen);
                 }
                 return;
+            }else if(inputData.keyCode === ROT.VK_W){
+                if(inputData.shiftKey){
+                    if(this._player.getItems().filter(function(x){return x;}).length === 0){
+                        Game.sendMessage(this._player, "You have nothing to wield!");
+                        Game.refresh();
+                    }else{
+                        Game.Screen.wieldScreen.setup(this._player, this._player.getItems());
+                        this.setSubScreen(Game.Screen.wieldScreen);
+                    }
+                }else{
+                    if(this._player.getItems().filter(function(x){return x;}).length === 0){
+                        Game.sendMessage(this._player, "You have nothing to wear!");
+                        Game.refresh();
+                    }else{
+                        Game.Screen.wearScreen.setup(this._player, this._player.getItems());
+                        this.setSubScreen(Game.Screen.wearScreen);
+                    }
+                }
             }else if(inputData.keyCode === ROT.VK_X){
                 var items = this._map.getItemsAt(this._player.getX(), this._player.getY(), this._player.getZ());
 
@@ -258,25 +276,54 @@ Game.Screen.ItemListScreen = function(template){
     this._okFunction = template['ok'];
     this._canSelectItem = template['canSelect'];
     this._canSelectMultipleItems = template['canSelectMultipleItems'];
+    this._isAcceptableFunction = template['isAcceptable'] || function(x){ return x; }
+    this._hasNoItemOption = template['hasNoItemOption'];
 }
 
 Game.Screen.ItemListScreen.prototype.setup = function(player, items){
     this._player = player;
-    this._items = items;
+    
+    var c = 0;
+
+    var self = this;
+
+    this._items = items.map(function(item){
+        if(self._isAcceptableFunction(item)){
+            c++;
+            return item;
+        }else{
+            return null;
+        }
+    });
+
     this._selectedIndices = {};
+    return c;
 }
 
 Game.Screen.ItemListScreen.prototype.render = function(display){
     var letters = 'abcdefghijklmnopqrstuvwxyz';
 
     display.drawText(0,0, this._caption);
+
+    if(this._hasNoItemOption){
+        display.drawText(0,1,'0 - no item');
+    }
+
     var row = 0;
     for(var i = 0; i < this._items.length; i++){
         if(this._items[i]){
             var letter = letters.substring(i, i+1);
 
             var selectionState = (this._canSelectItem && this._canSelectMultipleItems && this._selectedIndices[i]) ? '+' : '-';
-            display.drawText(0, 2 + row, letter + ' ' + selectionState + ' ' + this._items[i].describe());
+            
+            var suffix = '';
+            if(this._items[i] === this._player.getArmor()){
+                suffix = ' (wearing)';
+            }else if(this._items[i] === this._player.getWeapon()){
+                suffix = ' (wielding)';
+            }
+
+            display.drawText(0, 2 + row, letter + ' ' + selectionState + ' ' + this._items[i].describe() + suffix);
             row++;
         }
     }
@@ -302,6 +349,9 @@ Game.Screen.ItemListScreen.prototype.handleInput = function(inputType, inputData
             (!this._canSelectItem || Object.keys(this._selectedIndices).length === 0))){
             Game.Screen.playScreen.setSubScreen(undefined);
         }else if(inputData.keyCode === ROT.VK_RETURN){
+            this.executeOkFunction();
+        }else if(this._canSelectItem && this._hasNoItemOption && inputData.keyCode === ROT.VK_0){
+            this._selectedIndices = {};
             this.executeOkFunction();
         }else if(this._canSelectItem && inputData.keyCode >= ROT.VK_A && inputData.keyCode <= ROT.VK_Z){
             var index = inputData.keyCode - ROT.VK_A;
@@ -349,3 +399,49 @@ Game.Screen.dropScreen = new Game.Screen.ItemListScreen({
         return true;
     }
 })
+
+Game.Screen.wieldScreen = new Game.Screen.ItemListScreen({
+    caption: 'Choose the item you wish to wield',
+    canSelect: true,
+    canSelectMultipleItems: false,
+    hasNoItemOption: true,
+    isAcceptable: function(item){
+        return item && item.isWieldable();
+    },
+    ok: function(selectedItems){
+        var keys = Object.keys(selectedItems);
+        if(keys.length === 0){
+            this._player.unwield();
+            Game.sendMessage(this._player, "You are empty handed.");
+        }else{
+            var item = selectedItems[keys[0]];
+            this._player.unequip(item);
+            this._player.wield(item);
+            Game.sendMessage(this._player, "You are wielding %s.", [item.describeA()]);
+        }
+        return true;
+    }
+});
+
+Game.Screen.wearScreen = new Game.Screen.ItemListScreen({
+    caption: 'Choose the item you wish to wear',
+    canSelect: true,
+    canSelectMultipleItems: false,
+    hasNoItemOption: true,
+    isAcceptable: function(item){
+        return item && item.isWearable();
+    },
+    ok: function(selectedItems){
+        var keys = Object.keys(selectedItems);
+        if(keys.length === 0){
+            this._player.unwield();
+            Game.sendMessage(this._player, "You are not wearing anything.");
+        }else{
+            var item = selectedItems[keys[0]];
+            this._player.unequip(item);
+            this._player.wear(item);
+            Game.sendMessage(this._player, "You are wearing %s.", [item.describeA()]);
+        }
+        return true;
+    }
+});

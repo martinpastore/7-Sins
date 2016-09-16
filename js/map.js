@@ -25,7 +25,13 @@ Game.Map = function(tiles, player){
         for (var i = 0; i < 15; i++) {
             this.addItemAtRandomPosition(Game.ItemRepository.createRandom(), z);
         }
+        var templates = ['dagger', 'sword', 'staff', 'tunic', 'chainmail', 'ironmail']
+        for (var i = 0; i < templates.length; i++) {
+            this.addItemAtRandomPosition(Game.ItemRepository.create(templates[i]), Math.floor(this._depth * Math.random()));
+        }
     }
+
+
 }
 
 Game.Map.prototype.getWidth = function(){
