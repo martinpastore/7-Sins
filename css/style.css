@@ -77,3 +77,49 @@ table span {
 .necro:hover{
 	text-shadow: 0 0 2em #d311ff;
 }
+
+.interface {
+	width: 260px;
+	height: 100%;
+	background-color: #333;	
+	float: left;
+	position: relative;
+	display: inline-block;
+	overflow-y: auto;
+	overflow-x: hidden;
+	
+	/* border-right: 1px #111 solid; */
+	border-bottom: 0px;
+	margin-right:2px;
+	
+	background: #000;
+	/* 
+	background: #333;
+	background: -moz-linear-gradient(left, #333 0%, #000 100%);
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#333), color-stop(100%,#000));
+	background: -webkit-linear-gradient(left, #333 0%,#000 100%);
+	background: -o-linear-gradient(left, #333 0%,#000 100%);
+	background: -ms-linear-gradient(left, #333 0%,#000 100%);
+	background: linear-gradient(to right, #333 0%,#000 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#333', endColorstr='#000',GradientType=1 ); */
+}
+
+.hide{
+	display: none;
+}
+
+#story, 
+#tasks, 
+#stats,
+#defense,
+#attack {
+	text-align: left;
+	color: #DEDEDE;
+	font-family: 'Droid Sans Mono', sans-serif;
+	font-size: 15px;
+	padding: 8px 15px 15px 15px;
+	margin: 4px 5px;
+	background-color: rgba(34,34,34,0.125);
+	border: 1px rgba(34,34,34,0.75) solid;
+	margin-bottom: 0px;
+}

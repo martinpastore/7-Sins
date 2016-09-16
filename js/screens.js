@@ -121,9 +121,11 @@ Game.Screen.playScreen = {
             messageY += display.drawText(0, messageY, '%c{white}%b{black}' + messages[i]);
         }
 
-        var stats = '%c{white}%b{black}';
-        stats += 'HP: ' + this._player.getHp() + '/' +  this._player.getMaxHp();
-        display.drawText(0, screenHeight, stats);
+        //var stats = '%c{white}%b{black}';
+        stats = this._player.getHp() + '/' +  this._player.getMaxHp();
+        document.getElementById("stats").innerHTML = 'HP: ' + stats;
+        document.getElementById("attack").innerHTML = 'Attack: ' + this._player.getAttackValue();
+        document.getElementById("defense").innerHTML = 'Defense: ' + this._player.getDefenseValue();
     },
     move: function(dX, dY, dZ){
         var newX = this._player.getX() + dX;

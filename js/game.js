@@ -75,6 +75,7 @@ window.onclick = function(e){
             Game._type = "warrior";
         }
         document.getElementById("tbl_select").remove();
+        document.getElementById("statistics").classList.remove("hide");
         Game.init();
         document.body.appendChild(Game.getDisplay().getContainer());
         Game.switchScreen(Game.Screen.startScreen);
