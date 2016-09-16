@@ -1,6 +1,6 @@
 body {
 	margin: 0;
-	background-color: #222;
+	background-color: #000;
 	font-family: droid sans mono, monospace;
 	font-size: 16px;
 }
@@ -108,8 +108,8 @@ table span {
 	display: none;
 }
 
-#story, 
-#tasks, 
+#armor, 
+#weapon, 
 #stats,
 #defense,
 #attack {

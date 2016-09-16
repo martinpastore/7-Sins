@@ -126,6 +126,16 @@ Game.Screen.playScreen = {
         document.getElementById("stats").innerHTML = 'HP: ' + stats;
         document.getElementById("attack").innerHTML = 'Attack: ' + this._player.getAttackValue();
         document.getElementById("defense").innerHTML = 'Defense: ' + this._player.getDefenseValue();
+        if(this._player._weapon !== null){
+            document.getElementById("weapon").innerHTML = 'Actual Weapon: ' + this._player._weapon._name.toUpperCase();
+        }else{
+            document.getElementById("weapon").innerHTML = 'Actual Weapon: ---';
+        }
+        if(this._player._armor){
+            document.getElementById("armor").innerHTML = 'Actual Armor: ' + this._player._armor._name.toUpperCase();
+        }else{
+            document.getElementById("armor").innerHTML = 'Actual Armor: ---';
+        }
     },
     move: function(dX, dY, dZ){
         var newX = this._player.getX() + dX;
