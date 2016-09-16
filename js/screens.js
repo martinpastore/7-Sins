@@ -9,7 +9,7 @@ Game.Screen.startScreen = {
     enter: function() { console.log("Game Start"); },
     exit: function() { console.log("Exit"); },
     render: function(display){
-        display.drawText(1, 1, "%c{purple}BERSERKERS");
+        display.drawText(1, 1, "%c{RED}7 SINS");
         display.drawText(1, 2, "Press [ENTER] to start!");
     },
     handleInput: function(inputType, inputData){
