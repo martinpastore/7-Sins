@@ -6,13 +6,19 @@ Game.ItemRepository = new Game.Repository('items', Game.Item);
 Game.ItemRepository.define('life', {
     name: 'life',
     character: '♥',
-    foreground: 'red'
+    foreground: 'red',
+    wearable: false,
+    wieldable: false,
+    mixins: [Game.ItemMixins.Equippable]
 });
 
 Game.ItemRepository.define('rock', {
     name: 'rock',
     character: '*',
-    foreground: 'lightgray'
+    foreground: 'lightgray',
+    wearable: false,
+    wieldable: false,
+    mixins: [Game.ItemMixins.Equippable]
 });
 
 Game.ItemRepository.define('dagger', {
