@@ -377,8 +377,8 @@ Game.EntityRepository.define('Bat',{
     mixins: [Game.Mixins.WanderActor, Game.Mixins.Attacker, Game.Mixins.Destructible]
 })
 
-Game.EntityRepository.define('Newt', {
-    name: 'Newt',
+Game.EntityRepository.define('Snake', {
+    name: 'Snake',
     character: '~',
     foreground: 'red',
     maxHp: 3,
