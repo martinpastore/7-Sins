@@ -45,6 +45,11 @@ table span {
 	font-weight: normal;
 }
 
+div span{
+	color: #17ff25;
+	margin: 5px;
+}
+
 .warrior {
 	color: #fff;
 }

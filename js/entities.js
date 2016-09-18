@@ -431,3 +431,15 @@ Game.EntityRepository.define('Zombie', {
     tasks: ['hunt', 'wander'],
     mixins: [Game.Mixins.TaskActor, Game.Mixins.Attacker, Game.Mixins.Destructible, Game.Mixins.Sight]
 })
+
+Game.EntityRepository.define('Skeleton', {
+    name: 'Skeleton',
+    character: 'k',
+    foreground: 'white',
+    maxHp: 5,
+    attackValue: 4,
+    defenseValue: 6,
+    speed: 500,
+    tasks: ['hunt', 'wander'],
+    mixins: [Game.Mixins.TaskActor, Game.Mixins.Attacker, Game.Mixins.Destructible, Game.Mixins.Sight]
+})
