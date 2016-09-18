@@ -136,6 +136,8 @@ Game.Screen.playScreen = {
         }else{
             document.getElementById("armor").innerHTML = 'Actual Armor: ---';
         }
+        document.getElementById("level").innerHTML = 'Level: ' + this._player.getLevel();
+        document.getElementById("next").innerHTML = 'Next Level: ' + this._player.getExperience() + "/" + this._player.getNextLevelExperience();
     },
     move: function(dX, dY, dZ){
         var newX = this._player.getX() + dX;
@@ -457,3 +459,38 @@ Game.Screen.wearScreen = new Game.Screen.ItemListScreen({
         return true;
     }
 });
+
+Game.Screen.gainStatScreen = {
+    setup: function(entity){
+        this._entity = entity;
+        this._options = entity.getStatOptions();
+    },
+    render: function(display){
+        var letters = 'abcdefghijklmnopqrstuvwxyz';
+        display.drawText(0, 0, 'Choose a stat to increase: ');
+
+        for(var i = 0; i < this._options.length; i++){
+            display.drawText(0, 2 + i, letters.substring(i, i + 1) + ' - ' + this._options[i][0]);
+        }
+
+        display.drawText(0, 4 + this._options.length, "Remaining points: " + this._entity.getStatPoints());
+    },
+    handleInput: function(inputType, inputData){
+        if(inputType === 'keydown'){
+            if(inputData.keyCode >= ROT.VK_A && inputData.keyCode <= ROT.VK_Z){
+                var index = inputData.keyCode - ROT.VK_A;
+                if(this._options[index]){
+                    this._options[index][1].call(this._entity);
+
+                    this._entity.setStatPoints(this._entity.getStatPoints() - 1);
+
+                    if(this._entity.getStatPoints() == 0){
+                        Game.Screen.playScreen.setSubScreen(undefined);
+                    }else{
+                        Game.refresh();
+                    }
+                }
+            }
+        }
+    }
+}

@@ -117,6 +117,8 @@ div span{
 #weapon, 
 #stats,
 #defense,
+#level,
+#next,
 #attack {
 	text-align: left;
 	color: #DEDEDE;

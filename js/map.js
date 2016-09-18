@@ -20,7 +20,13 @@ Game.Map = function(tiles, player){
 
     for(var z = 0; z < this._depth; z++) {
         for (var i = 0; i < 15; i++) {
-            this.addEntityAtRandomPosition(Game.EntityRepository.createRandom(), z);
+            var entity = Game.EntityRepository.createRandom();
+            this.addEntityAtRandomPosition(entity, z);
+            if(entity.hasMixin('ExperienceGainer')){
+                for(var level = 0; level < z; level++){
+                    entity.giveExperience(entity.getNextLevelExperience() - entity.getNextLevelExperience());
+                }
+            }
         }
 
         for (var i = 0; i < 15; i++) {

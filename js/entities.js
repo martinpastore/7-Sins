@@ -16,6 +16,9 @@ Game.Mixins.Destructible = {
     getMaxHp: function(){
       return this._maxHp;
     },
+    setHp: function(hp){
+        this._hp = hp;
+    },
     getDefenseValue: function(){
       var modifier = 0;
 
@@ -26,6 +29,18 @@ Game.Mixins.Destructible = {
       }  
       return this._defenseValue + modifier;
     },
+    increaseDefenseValue: function(value){
+        value = value || 2;
+
+        this._defenseValue += value;
+        Game.sendMessage(this, "You look tougher!");
+    },
+    increaseMaxHp: function(value){
+        value = value || 10;
+        this._maxHp += value;
+        this._hp += value;
+        Game.sendMessage(this, "You like healthier!");
+    },
     takeDamage: function(attacker, damage){
         this._hp -= damage;
 
@@ -35,6 +50,21 @@ Game.Mixins.Destructible = {
                 this.act();
             }else {
                 this.getMap().removeEntity(this);
+            }
+
+            if(attacker.hasMixin('ExperienceGainer')){
+                var exp = this.getMaxHp() + this.getDefenseValue();
+                if(this.hasMixin('Attacker')){
+                    exp += this.getAttackValue();
+                }
+
+                if(this.hasMixin('ExperienceGainer')){
+                    exp -= (attacker.getLevel() - this.getLevel()) * 3;
+                }
+
+                if(exp > 0){
+                    attacker.giveExperience(exp);
+                }
             }
         }
     }
@@ -97,6 +127,12 @@ Game.Mixins.Attacker = {
         }
         return this._attackValue + modifier;
     },
+    increaseAttackValue: function(value){
+        value = value || 2;
+
+        this._attackValue += value;
+        Game.sendMessage(this, "You looks stronger!");
+    },
     attack: function(target){
         if(target.hasMixin('Destructible')){
             var attack = this.getAttackValue();
@@ -136,6 +172,12 @@ Game.Mixins.Sight = {
     },
     getSightRadius: function(){
         return this._sightRadius;
+    },
+    increaseSightRadius: function(value){
+        value = value || 1;
+
+        this._sightRadius += value;
+        Game.sendMessage(this, "You are more aware of your surroundings!");
     },
     canSee: function(entity){
         if(!entity || this._map !== entity.getMap() || this._z !== entity.getZ()){
@@ -318,6 +360,93 @@ Game.Mixins.Equipper = {
     }
 }
 
+Game.Mixins.ExperienceGainer = {
+    name: 'ExperienceGainer',
+    init: function(template){
+        this._level = template['level'] || 1;
+        this._experience = template['experience'] || 0;
+        this._statPointsPerLevel = template ['statPointsPerLevel'] || 1;
+        this._statPoints = 0;
+
+        this._statOptions = [];
+
+        this._statOptions.push(['Increase attack value', this.increaseAttackValue]);
+        this._statOptions.push(['Increase defense value', this.increaseDefenseValue]);
+        this._statOptions.push(['Increase max health', this.increaseMaxHp]);
+        this._statOptions.push(['Increase sight range', this.increaseSightRadius]);
+
+    },
+    getLevel: function(){
+        return this._level;
+    },
+    getExperience: function(){
+        return this._experience;
+    },
+    getNextLevelExperience: function(){
+        return (this._level * this._level) * 10;
+    },
+    getStatPoints: function(){
+        return this._statPoints;
+    },
+    setStatPoints: function(statPoints){
+        this._statPoints = statPoints;
+    },
+    getStatOptions: function(){
+        return this._statOptions;
+    },
+    giveExperience: function(points){
+        var statPointsGained = 0;
+        var levelsGained = 0;
+
+        while(points > 0){
+            if(this._experience + points >= this.getNextLevelExperience()){
+                var usedPoints = this.getNextLevelExperience() - this._experience;
+                points -= usedPoints;
+                this._level++;
+                levelsGained++;
+                this._statPoints += this._statPointsPerLevel;
+                statPointsGained += this._statPointsPerLevel;
+            }else{
+                this._experience += points;
+                points = 0;
+            }
+        }
+        if(levelsGained > 0){
+            Game.sendMessage(this, "You advance to level %d", [this._level]);
+
+            if(this.hasMixin('Destructible')){
+                this.setHp(this.getMaxHp());
+            }
+
+            if(this.hasMixin('StatGainer')){
+                this.onGainLevel();
+            }
+        }
+    }
+}
+
+Game.Mixins.RandomStatGainer = {
+    name: 'RandomStatGainer',
+    groupName: 'StatGainer',
+    onGainLevel: function(){
+        var statOptions = this.getStatOptions();
+
+        while(this.getStatOptions() > 0){
+            statOptions.random()[1].call(this);
+            this.setStatPoints(this.getStatPoints() - 1);
+        }
+    }
+}
+
+Game.Mixins.PlayerStatGainer = {
+    name: 'PlayerStatGainer',
+    groupName: 'StatGainer',
+    onGainLevel: function(){
+        Game.Screen.gainStatScreen.setup(this);
+        Game.Screen.playScreen.setSubScreen(Game.Screen.gainStatScreen);
+    }
+}
+
 Game.sendMessage = function(recipient, message, args){
     if(recipient.hasMixin(Game.Mixins.MessageRecipient)){
         if(args){
@@ -348,7 +477,8 @@ Game.PlayerTemplate = {
     attackValue: 10,
     sightRadius: 6,
     mixins: [Game.Mixins.PlayerActor, Game.Mixins.Attacker, Game.Mixins.InventoryHolder,
-            Game.Mixins.Destructible, Game.Mixins.Sight, Game.Mixins.MessageRecipient, Game.Mixins.Equipper]
+            Game.Mixins.Destructible, Game.Mixins.Sight, Game.Mixins.MessageRecipient, Game.Mixins.Equipper,
+            Game.Mixins.ExperienceGainer, Game.Mixins.PlayerStatGainer]
 }
 
 Game.WarriorTemplate = {
@@ -358,7 +488,8 @@ Game.WarriorTemplate = {
     attackValue: 8,
     sightRadius: 6,
     mixins: [Game.Mixins.PlayerActor, Game.Mixins.Attacker, Game.Mixins.InventoryHolder,
-            Game.Mixins.Destructible, Game.Mixins.Sight, Game.Mixins.MessageRecipient, Game.Mixins.Equipper]
+            Game.Mixins.Destructible, Game.Mixins.Sight, Game.Mixins.MessageRecipient, Game.Mixins.Equipper,
+            Game.Mixins.ExperienceGainer, Game.Mixins.PlayerStatGainer]
 }
 
 Game.MageTemplate = {
@@ -368,7 +499,8 @@ Game.MageTemplate = {
     attackValue: 10,
     sightRadius: 6,
     mixins: [Game.Mixins.PlayerActor, Game.Mixins.Attacker, Game.Mixins.InventoryHolder,
-            Game.Mixins.Destructible, Game.Mixins.Sight, Game.Mixins.MessageRecipient, Game.Mixins.Equipper]
+            Game.Mixins.Destructible, Game.Mixins.Sight, Game.Mixins.MessageRecipient, Game.Mixins.Equipper,
+            Game.Mixins.ExperienceGainer, Game.Mixins.PlayerStatGainer]
 }
 
 Game.ArcherTemplate = {
@@ -378,7 +510,8 @@ Game.ArcherTemplate = {
     attackValue: 9,
     sightRadius: 6,
     mixins: [Game.Mixins.PlayerActor, Game.Mixins.Attacker, Game.Mixins.InventoryHolder,
-            Game.Mixins.Destructible, Game.Mixins.Sight, Game.Mixins.MessageRecipient, Game.Mixins.Equipper]
+            Game.Mixins.Destructible, Game.Mixins.Sight, Game.Mixins.MessageRecipient, Game.Mixins.Equipper,
+            Game.Mixins.ExperienceGainer, Game.Mixins.PlayerStatGainer]
 }
 
 Game.NecroTemplate = {
@@ -388,7 +521,8 @@ Game.NecroTemplate = {
     attackValue: 10,
     sightRadius: 6,
     mixins: [Game.Mixins.PlayerActor, Game.Mixins.Attacker, Game.Mixins.InventoryHolder,
-            Game.Mixins.Destructible, Game.Mixins.Sight, Game.Mixins.MessageRecipient, Game.Mixins.Equipper]
+            Game.Mixins.Destructible, Game.Mixins.Sight, Game.Mixins.MessageRecipient, Game.Mixins.Equipper,
+            Game.Mixins.ExperienceGainer, Game.Mixins.PlayerStatGainer]
 }
 
 Game.EntityRepository = new Game.Repository('entities', Game.Entity);
@@ -399,7 +533,7 @@ Game.EntityRepository.define('Fungus',{
     foreground: 'green',
     speed: 250,
     maxHp: 10,
-    mixins: [Game.Mixins.FungusActor, Game.Mixins.Destructible]
+    mixins: [Game.Mixins.FungusActor, Game.Mixins.Destructible, Game.Mixins.ExperienceGainer, Game.Mixins.RandomStatGainer]
 })
 
 Game.EntityRepository.define('Bat',{
@@ -409,7 +543,8 @@ Game.EntityRepository.define('Bat',{
     speed: 2000,
     maxHp: 5,
     attackValue: 4,
-    mixins: [Game.Mixins.TaskActor, Game.Mixins.Attacker, Game.Mixins.Destructible]
+    mixins: [Game.Mixins.TaskActor, Game.Mixins.Attacker, Game.Mixins.Destructible, Game.Mixins.ExperienceGainer,
+            Game.Mixins.RandomStatGainer]
 })
 
 Game.EntityRepository.define('Snake', {
@@ -418,7 +553,8 @@ Game.EntityRepository.define('Snake', {
     foreground: 'red',
     maxHp: 3,
     attackValue: 2,
-    mixins: [Game.Mixins.TaskActor, Game.Mixins.Attacker, Game.Mixins.Destructible]
+    mixins: [Game.Mixins.TaskActor, Game.Mixins.Attacker, Game.Mixins.Destructible,Game.Mixins.ExperienceGainer,
+            Game.Mixins.RandomStatGainer]
 })
 
 Game.EntityRepository.define('Zombie', {
@@ -429,7 +565,8 @@ Game.EntityRepository.define('Zombie', {
     attackValue: 4,
     defenseValue: 5,
     tasks: ['hunt', 'wander'],
-    mixins: [Game.Mixins.TaskActor, Game.Mixins.Attacker, Game.Mixins.Destructible, Game.Mixins.Sight]
+    mixins: [Game.Mixins.TaskActor, Game.Mixins.Attacker, Game.Mixins.Destructible, Game.Mixins.Sight,
+            Game.Mixins.ExperienceGainer, Game.Mixins.RandomStatGainer]
 })
 
 Game.EntityRepository.define('Skeleton', {
@@ -441,5 +578,6 @@ Game.EntityRepository.define('Skeleton', {
     defenseValue: 6,
     speed: 500,
     tasks: ['hunt', 'wander'],
-    mixins: [Game.Mixins.TaskActor, Game.Mixins.Attacker, Game.Mixins.Destructible, Game.Mixins.Sight]
+    mixins: [Game.Mixins.TaskActor, Game.Mixins.Attacker, Game.Mixins.Destructible, Game.Mixins.Sight,
+            Game.Mixins.ExperienceGainer, Game.Mixins.RandomStatGainer]
 })
