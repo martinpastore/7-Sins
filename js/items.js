@@ -48,6 +48,24 @@ Game.ItemRepository.define('staff', {
 	mixins: [Game.ItemMixins.Equippable]
 });
 
+Game.ItemRepository.define('bow', {
+	name: 'bow',
+	character: ')',
+	foreground: 'brown',
+	attackValue: 8,
+	wieldable: true,
+	mixins: [Game.ItemMixins.Equippable]
+});
+
+Game.ItemRepository.define('magic', {
+	name: 'magic',
+	character: '&',
+	foreground: 'pink',
+	attackValue: 9,
+	wieldable: true,
+	mixins: [Game.ItemMixins.Equippable]
+});
+
 Game.ItemRepository.define('tunic', {
 	name: 'tunic',
 	character: '▼',
