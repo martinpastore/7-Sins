@@ -3,44 +3,6 @@
  */
 Game.Mixins = {}
 
-Game.Mixins.Moveable = {
-    name: 'Moveable',
-    tryMove: function(x, y, z, map){
-        var tile = map.getTile(x, y, this.getZ());
-        var target = map.getEntityAt(x, y, this.getZ());
-
-        if(z < this.getZ()){
-            if(tile != Game.Tile.stairsUpTile){
-                Game.sendMessage(this, "You can't go up!");
-            }else{
-                Game.sendMessage(this, "You ascend to level %d!", [z+1]);
-                this.setPosition(x, y, z);
-            }
-        }else if(z > this.getZ()){
-            if(tile != Game.Tile.stairsDownTile){
-                Game.sendMessage(this, "You can't go down!");
-            }else{
-                this.setPosition(x, y, z);
-                Game.sendMessage(this, "You descend to level %d!", [z + 1]);
-            }
-        }else if(target){
-            if(this.hasMixin('Attacker')){
-                this.attack(target);
-                return true;
-            }else{
-                return false;
-            }
-        }else if(tile.isWalkable()){
-            this.setPosition(x, y, z);
-            return true;
-        }else if(tile.isDiggable()){
-            map.dig(x, y, z);
-            return true;
-        }
-        return false;
-    }
-}
-
 Game.Mixins.Destructible = {
     name: 'Destructible',
     init: function(template){
@@ -174,19 +136,90 @@ Game.Mixins.Sight = {
     },
     getSightRadius: function(){
         return this._sightRadius;
+    },
+    canSee: function(entity){
+        if(!entity || this._map !== entity.getMap() || this._z !== entity.getZ()){
+            return false;
+        }
+
+        var otherX = entity.getX();
+        var otherY = entity.getY();
+
+        if((otherX - this._x) * (otherX - this._x) + (otherY - this._y) * (otherY - this._y) > this._sightRadius * this._sightRadius){
+            return false;
+        }
+
+        var found = false;
+
+        this.getMap().getFov(this.getZ()).compute(
+            this.getX(), this.getY(), this.getSightRadius(), function(x, y, radius, visibility){
+                if(x === otherX && y === otherY){
+                    found = true;
+                }
+            });
+        return found;
     }
 }
 
-Game.Mixins.WanderActor = {
-    name: 'WanderActor',
+Game.Mixins.TaskActor = {
+    name: 'TaskActor',
     groupName: 'Actor',
+    init: function(template){
+        this._tasks = template['tasks'] || ['wander']
+    },
     act: function(){
+        for(var i = 0; i < this._tasks.length; i++){
+            if(this.canDoTask(this._tasks[i])){
+                this[this._tasks[i]]();
+                return;
+            }
+        }
+    },
+    canDoTask: function(task){
+        if(task === 'hunt'){
+            return this.hasMixin('Sight') && this.canSee(this.getMap().getPlayer());
+        }else if(task === 'wander'){
+            return true;
+        }else{
+            throw new Error('Tried to perform undefined task ' + task);
+        }
+    },
+    hunt: function(){
+        var player = this.getMap().getPlayer();
+
+        var offsets = Math.abs(player.getX() - this.getX()) + Math.abs(player.getY() - this.getY());
+        if(offsets === 1){
+            if(this.hasMixin('Attacker')){
+                this.attack(player);
+                return;
+            }
+        }
+
+        var source = this;
+        var z = source.getZ();
+        var path = new ROT.Path.AStar(player.getX(), player.getY(), function(x, y){
+            var entity = source.getMap().getEntityAt(x, y, z);
+            if(entity && entity !== player && entity !== source){
+                return false;
+            }
+            return source.getMap().getTile(x, y, z).isWalkable();
+        }, {topology: 4});
+
+        var c = 0;
+        path.compute(source.getX(), source.getY(), function(x, y){
+            if(c == 1){
+                source.tryMove(x, y, z);
+            }
+            c++;
+        });
+    },
+    wander: function(){
         var movOffset = (Math.round(Math.random()) === 1) ? 1 : -1;
 
         if(Math.round(Math.random()) === 1){
             this.tryMove(this.getX() + movOffset, this.getY(), this.getZ());
         }else{
-            this.tryMove(this.getX(), this.getY + movOffset, this.getZ());
+            this.tryMove(this.getX(), this.getY() + movOffset, this.getZ());
         }
     }
 }
@@ -364,6 +397,7 @@ Game.EntityRepository.define('Fungus',{
     name: 'Fungus',
     character: 'F',
     foreground: 'green',
+    speed: 250,
     maxHp: 10,
     mixins: [Game.Mixins.FungusActor, Game.Mixins.Destructible]
 })
@@ -372,9 +406,10 @@ Game.EntityRepository.define('Bat',{
     name: 'Bat',
     character: '^',
     foreground: 'white',
+    speed: 2000,
     maxHp: 5,
     attackValue: 4,
-    mixins: [Game.Mixins.WanderActor, Game.Mixins.Attacker, Game.Mixins.Destructible]
+    mixins: [Game.Mixins.TaskActor, Game.Mixins.Attacker, Game.Mixins.Destructible]
 })
 
 Game.EntityRepository.define('Snake', {
@@ -383,5 +418,16 @@ Game.EntityRepository.define('Snake', {
     foreground: 'red',
     maxHp: 3,
     attackValue: 2,
-    mixins: [Game.Mixins.WanderActor, Game.Mixins.Attacker, Game.Mixins.Destructible]
+    mixins: [Game.Mixins.TaskActor, Game.Mixins.Attacker, Game.Mixins.Destructible]
+})
+
+Game.EntityRepository.define('Zombie', {
+    name: 'Zombie',
+    character: 'z',
+    foreground: 'lightgreen',
+    maxHp: 6,
+    attackValue: 4,
+    defenseValue: 5,
+    tasks: ['hunt', 'wander'],
+    mixins: [Game.Mixins.TaskActor, Game.Mixins.Attacker, Game.Mixins.Destructible, Game.Mixins.Sight]
 })

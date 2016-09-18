@@ -10,6 +10,7 @@ Game.Entity = function(properties){
     this._x = properties['x'] || 0;
     this._y = properties['y'] || 0;
     this._z = properties['z'] || 0;
+    this._speed = properties['speed'] || 1000;
     this._map = null;
 
     this._attachedMixins = {};
@@ -68,6 +69,14 @@ Game.Entity.prototype.getY = function(){
 
 Game.Entity.prototype.getZ = function(){
     return this._z;
+}
+
+Game.Entity.prototype.setSpeed = function(speed){
+    this._speed = speed;
+}
+
+Game.Entity.prototype.getSpeed = function(){
+    return this._speed;
 }
 
 Game.Entity.prototype.setPosition = function(x, y, z){

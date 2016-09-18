@@ -11,9 +11,10 @@ Game.Map = function(tiles, player){
     this.setupFov();
     this._explored = new Array(this._depth);
     this._setupExploredArray();
-    this._scheduler = new ROT.Scheduler.Simple();
+    this._scheduler = new ROT.Scheduler.Speed();
     this._engine = new ROT.Engine(this._scheduler);
     this._items = {};
+    this._player = player;
 
     this.addEntityAtRandomPosition(player, 0);
 
@@ -44,6 +45,10 @@ Game.Map.prototype.getHeight = function(){
 
 Game.Map.prototype.getDepth = function(){
     return this._depth;
+}
+
+Game.Map.prototype.getPlayer = function(){
+    return this._player;
 }
 
 Game.Map.prototype.getTile = function(x, y, z){
