@@ -1,7 +1,7 @@
 Game.Map.BossCavern = function(){
 	Game.Map.call(this, this._generateTiles(80, 24));
 
-	this.addEntityAtRandomPosition(Game.EntityRepository.create('Gluttony Sin'), 0);
+	this.addEntityAtRandomPosition(Game.EntityRepository.create('Demon'), 0);
 }
 
 Game.Map.BossCavern.extend(Game.Map);

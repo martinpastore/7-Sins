@@ -643,3 +643,18 @@ Game.EntityRepository.define('Gluttony Sin', {
 },{
     disableRandomCreation: true
 })
+
+Game.EntityRepository.define('Demon', {
+    name: 'Demon',
+    character: 'Ð',
+    foreground: 'darkred',
+    maxHp: 300,
+    attackValue: 100,
+    defenseValue: 100,
+    level: 50,
+    sightRadius: 20,
+    mixins: [Game.Mixins.GluttonySinActor, Game.Mixins.Sight, Game.Mixins.Attacker,
+            Game.Mixins.Destructible, Game.Mixins.ExperienceGainer]
+},{
+    disableRandomCreation: true
+})
