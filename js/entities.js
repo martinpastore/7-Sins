@@ -447,6 +447,43 @@ Game.Mixins.PlayerStatGainer = {
     }
 }
 
+Game.Mixins.GluttonySinActor = Game.extend(Game.Mixins.TaskActor, {
+    init: function(template){
+        Game.Mixins.TaskActor.init.call(this, Game.extend(template, {
+            'tasks': ['increaseAttack', 'spawnSkeleton', 'hunt', 'wander']
+        }));
+        this._hasGrownArm = false;
+    },
+    canDoTask: function(task){
+        if(task === 'increaseAttack'){
+            return this.getHp() <= 20 && !this._hasGrownArm;
+        }else if(task === 'spawnSkeleton'){
+            return Math.round(Math.random() * 100) <= 10;
+        }else{
+            return Game.Mixins.TaskActor.canDoTask.call(this, task);
+        }
+    },
+    increaseAttack: function(){
+        this._hasGrownArm = true;
+        this.increaseAttackValue(5);
+
+        Game.sendMessageNearby(this.getMap(), this.getX(), this.getY(), this.getZ(), 'Attack of Gluttony Sin increase!');
+    },
+    spawnSkeleton: function(){
+        var xOffset = Math.floor(Math.random() * 3) - 1;
+        var yOffset = Math.floor(Math.random() * 3) - 1;
+
+        if(!this.getMap().isEmptyFloor(this.getX() + xOffset, this.getY() + yOffset, this.getZ())){
+            return;
+        }
+        var zombie = Game.EntityRepository.create('Zombie');
+        zombie.setX(this.getX() + xOffset);
+        zombie.setY(this.getY() + yOffset);
+        zombie.setZ(this.getZ());
+        this.getMap().addEntity(zombie);
+    }
+})
+
 Game.sendMessage = function(recipient, message, args){
     if(recipient.hasMixin(Game.Mixins.MessageRecipient)){
         if(args){
@@ -549,7 +586,7 @@ Game.EntityRepository.define('Bat',{
 
 Game.EntityRepository.define('Snake', {
     name: 'Snake',
-    character: '~',
+    character: 's',
     foreground: 'red',
     maxHp: 3,
     attackValue: 2,
@@ -580,4 +617,17 @@ Game.EntityRepository.define('Skeleton', {
     tasks: ['hunt', 'wander'],
     mixins: [Game.Mixins.TaskActor, Game.Mixins.Attacker, Game.Mixins.Destructible, Game.Mixins.Sight,
             Game.Mixins.ExperienceGainer, Game.Mixins.RandomStatGainer]
+})
+
+Game.EntityRepository.define('Gluttony Sin', {
+    name: 'Gluttony Sin',
+    character: 'G',
+    foreground: 'teal',
+    maxHp: 30,
+    attackValue: 8,
+    defenseValue: 8,
+    level: 5,
+    sightRadius: 6,
+    mixins: [Game.Mixins.GluttonySinActor, Game.Mixins.Sight, Game.Mixins.Attacker,
+            Game.Mixins.Destructible, Game.Mixins.ExperienceGainer]
 })

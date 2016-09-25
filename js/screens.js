@@ -42,7 +42,7 @@ Game.Screen.playScreen = {
         }else{
             this._player = new Game.Entity(Game.WarriorTemplate);
         }
-        this._map = new Game.Map(tiles, this._player);
+        this._map = new Game.Map.Cave(tiles, this._player);
 
         this._map.getEngine().start();
     },
@@ -58,15 +58,15 @@ Game.Screen.playScreen = {
 
         var topLeftX = Math.max(0, this._player.getX() - (screenWidth / 2));
 
-        topLeftX = Math.min(topLeftX, this._map.getWidth() - screenWidth);
+        topLeftX = Math.min(topLeftX, this._player.getMap().getWidth() - screenWidth);
 
         var topLeftY = Math.max(0, this._player.getY() - (screenHeight / 2));
 
-        topLeftY = Math.min(topLeftY, this._map.getHeight() - screenHeight);
+        topLeftY = Math.min(topLeftY, this._player.getMap().getHeight() - screenHeight);
 
         var visibleCells = {};
 
-        var map = this._map;
+        var map = this._player.getMap();
         var currentDepth = this._player.getZ();
 
         map.getFov(currentDepth).compute(
@@ -145,7 +145,7 @@ Game.Screen.playScreen = {
         var newY = this._player.getY() + dY;
 
         var newZ = this._player.getZ() + dZ;
-        this._player.tryMove(newX, newY, newZ, this._map);
+        this._player.tryMove(newX, newY, newZ, this._player.getMap());
     },
     handleInput: function(inputType, inputData){
         if(this._gameEnded){
@@ -212,7 +212,7 @@ Game.Screen.playScreen = {
                     }
                 }
             }else if(inputData.keyCode === ROT.VK_X){
-                var items = this._map.getItemsAt(this._player.getX(), this._player.getY(), this._player.getZ());
+                var items = this._player.getMap().getItemsAt(this._player.getX(), this._player.getY(), this._player.getZ());
 
                 if(!items){
                     Game.sendMessage(this._player, "There is nothing here to pick up.");
@@ -232,7 +232,7 @@ Game.Screen.playScreen = {
                 return;
             }
 
-            this._map.getEngine().unlock();
+            this._player.getMap().getEngine().unlock();
         }else if(inputType === 'keypress'){
             var keyChar = String.fromCharCode(inputData.charCode);
             if(keyChar === '>'){
@@ -242,7 +242,7 @@ Game.Screen.playScreen = {
             }else{
                 return;
             }
-            this._map.getEngine().unlock();
+            this._player.getMap().getEngine().unlock();
         }
     },
     setGameEnded: function(gameEnded){

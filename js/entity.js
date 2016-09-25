@@ -107,7 +107,9 @@ Game.Entity.prototype.tryMove = function(x, y, z, map){
             this.setPosition(x, y, z);
         }
     }else if(z > this.getZ()){
-        if(tile != Game.Tile.stairsDownTile){
+        if(tile === Game.Tile.doorToCavernTile && this.hasMixin(Game.Entity.PlayerActor)){
+            this.switchMap(new Game.Map.BossCavern());
+        }else if(tile != Game.Tile.stairsDownTile){
             Game.sendMessage(this, "You can't go down here!");
         }else{
             Game.sendMessage(this, "You descend to level %d", [z + 1]);
@@ -155,4 +157,17 @@ Game.Entity.prototype.hasMixin = function(obj){
     }else{
         return this._attachedMixins[obj] || this._attachedMixinsGroups[obj];
     }
+}
+
+Game.Entity.prototype.switchMap = function(newMap){
+    if(newMap === this.getMap()){
+        return;
+    }
+
+    this.getMap().removeEntity(this);
+    this._x = 0;
+    this._y = 0;
+    this._z = 0;
+
+    newMap.addEntity(this);
 }
