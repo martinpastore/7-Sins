@@ -5,10 +5,17 @@ Game.Repository = function(name, ctor){
     this._name = name;
     this._templates = {};
     this._ctor = ctor;
+    this._randomTemplates = {};
 }
 
-Game.Repository.prototype.define = function(name, template){
-    return this._templates[name] = template;
+Game.Repository.prototype.define = function(name, template, options){
+    this._templates[name] = template;
+
+    var disableRandomCreation = options && options['disableRandomCreation'];
+
+    if(!disableRandomCreation){
+        this._randomTemplates[name] = template;
+    }
 }
 
 Game.Repository.prototype.create = function(name){

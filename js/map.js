@@ -16,7 +16,7 @@ Game.Map = function(tiles, player){
     this._items = {};
     this._player = player;
 
-    this.addEntityAtRandomPosition(player, 0);
+    //this.addEntityAtRandomPosition(player, 0);
 
     for(var z = 0; z < this._depth; z++) {
         for (var i = 0; i < 15; i++) {

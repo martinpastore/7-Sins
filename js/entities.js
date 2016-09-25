@@ -571,6 +571,8 @@ Game.EntityRepository.define('Fungus',{
     speed: 250,
     maxHp: 10,
     mixins: [Game.Mixins.FungusActor, Game.Mixins.Destructible, Game.Mixins.ExperienceGainer, Game.Mixins.RandomStatGainer]
+},{
+    disableRandomCreation: false
 })
 
 Game.EntityRepository.define('Bat',{
@@ -582,6 +584,8 @@ Game.EntityRepository.define('Bat',{
     attackValue: 4,
     mixins: [Game.Mixins.TaskActor, Game.Mixins.Attacker, Game.Mixins.Destructible, Game.Mixins.ExperienceGainer,
             Game.Mixins.RandomStatGainer]
+},{
+    disableRandomCreation: false
 })
 
 Game.EntityRepository.define('Snake', {
@@ -592,6 +596,8 @@ Game.EntityRepository.define('Snake', {
     attackValue: 2,
     mixins: [Game.Mixins.TaskActor, Game.Mixins.Attacker, Game.Mixins.Destructible,Game.Mixins.ExperienceGainer,
             Game.Mixins.RandomStatGainer]
+},{
+    disableRandomCreation: false
 })
 
 Game.EntityRepository.define('Zombie', {
@@ -604,6 +610,8 @@ Game.EntityRepository.define('Zombie', {
     tasks: ['hunt', 'wander'],
     mixins: [Game.Mixins.TaskActor, Game.Mixins.Attacker, Game.Mixins.Destructible, Game.Mixins.Sight,
             Game.Mixins.ExperienceGainer, Game.Mixins.RandomStatGainer]
+},{
+    disableRandomCreation: false
 })
 
 Game.EntityRepository.define('Skeleton', {
@@ -617,6 +625,8 @@ Game.EntityRepository.define('Skeleton', {
     tasks: ['hunt', 'wander'],
     mixins: [Game.Mixins.TaskActor, Game.Mixins.Attacker, Game.Mixins.Destructible, Game.Mixins.Sight,
             Game.Mixins.ExperienceGainer, Game.Mixins.RandomStatGainer]
+},{
+    disableRandomCreation: false
 })
 
 Game.EntityRepository.define('Gluttony Sin', {
@@ -630,4 +640,6 @@ Game.EntityRepository.define('Gluttony Sin', {
     sightRadius: 6,
     mixins: [Game.Mixins.GluttonySinActor, Game.Mixins.Sight, Game.Mixins.Attacker,
             Game.Mixins.Destructible, Game.Mixins.ExperienceGainer]
+},{
+    disableRandomCreation: true
 })
