@@ -1,6 +1,6 @@
 Game.Map.Cave = function(tiles, player){
 	Game.Map.call(this, tiles, player);
-
+	console.log(Game.EntityRepository.create('Gluttony Sin'));
 	this.addEntityAtRandomPosition(player, 0);
 	this.addEntityAtRandomPosition(Game.EntityRepository.create('Gluttony Sin'), 0);
 
@@ -8,7 +8,6 @@ Game.Map.Cave = function(tiles, player){
 		for(var i = 0; i < 15; i++){
 			var entity = Game.EntityRepository.createRandom();
 			if(entity._name != 'Gluttony Sin'){
-				console.log(entity._name);
 				this.addEntityAtRandomPosition(entity, z);
 			}
 			if(entity.hasMixin('ExperienceGainer')){
