@@ -9,12 +9,8 @@ Game.Repository = function(name, ctor){
 }
 
 Game.Repository.prototype.define = function(name, template, options){
-    this._templates[name] = template;
-
-    var disableRandomCreation = options && options['disableRandomCreation'];
-
-    if(!disableRandomCreation){
-        this._randomTemplates[name] = template;
+    if(name != 'Demon'){
+        return this._templates[name] = template;
     }
 }
 
