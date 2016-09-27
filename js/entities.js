@@ -634,9 +634,99 @@ Game.EntityRepository.define('Gluttony Sin', {
     character: 'G',
     foreground: 'teal',
     maxHp: 30,
-    attackValue: 8,
-    defenseValue: 8,
+    attackValue: 10,
+    defenseValue: 10,
     level: 5,
+    sightRadius: 6,
+    mixins: [Game.Mixins.GluttonySinActor, Game.Mixins.Sight, Game.Mixins.Attacker,
+            Game.Mixins.Destructible, Game.Mixins.ExperienceGainer]
+},{
+    disableRandomCreation: true
+})
+
+Game.EntityRepository.define('Lust Sin', {
+    name: 'Lust Sin',
+    character: 'L',
+    foreground: 'teal',
+    maxHp: 40,
+    attackValue: 20,
+    defenseValue: 20,
+    level: 7,
+    sightRadius: 6,
+    mixins: [Game.Mixins.GluttonySinActor, Game.Mixins.Sight, Game.Mixins.Attacker,
+            Game.Mixins.Destructible, Game.Mixins.ExperienceGainer]
+},{
+    disableRandomCreation: true
+})
+
+Game.EntityRepository.define('Greed Sin', {
+    name: 'Greed Sin',
+    character: 'G',
+    foreground: 'lightblue',
+    maxHp: 50,
+    attackValue: 30,
+    defenseValue: 30,
+    level: 9,
+    sightRadius: 6,
+    mixins: [Game.Mixins.GluttonySinActor, Game.Mixins.Sight, Game.Mixins.Attacker,
+            Game.Mixins.Destructible, Game.Mixins.ExperienceGainer]
+},{
+    disableRandomCreation: true
+})
+
+Game.EntityRepository.define('Sloth Sin', {
+    name: 'Sloth Sin',
+    character: 'S',
+    foreground: 'teal',
+    maxHp: 60,
+    attackValue: 40,
+    defenseValue: 40,
+    level: 11,
+    sightRadius: 6,
+    mixins: [Game.Mixins.GluttonySinActor, Game.Mixins.Sight, Game.Mixins.Attacker,
+            Game.Mixins.Destructible, Game.Mixins.ExperienceGainer]
+},{
+    disableRandomCreation: true
+})
+
+Game.EntityRepository.define('Envy Sin', {
+    name: 'Envy Sin',
+    character: 'E',
+    foreground: 'teal',
+    maxHp: 70,
+    attackValue: 50,
+    defenseValue: 50,
+    level: 13,
+    sightRadius: 6,
+    mixins: [Game.Mixins.GluttonySinActor, Game.Mixins.Sight, Game.Mixins.Attacker,
+            Game.Mixins.Destructible, Game.Mixins.ExperienceGainer]
+},{
+    disableRandomCreation: true
+})
+
+Game.EntityRepository.define('Pride Sin', {
+    name: 'Pride Sin',
+    character: 'P',
+    foreground: 'teal',
+    maxHp: 80,
+    attackValue: 60,
+    defenseValue: 60,
+    level: 15,
+    sightRadius: 6,
+    mixins: [Game.Mixins.GluttonySinActor, Game.Mixins.Sight, Game.Mixins.Attacker,
+            Game.Mixins.Destructible, Game.Mixins.ExperienceGainer]
+},{
+    disableRandomCreation: true
+})
+
+Game.EntityRepository.define('Wrath Sin', {
+    name: 'Wrath Sin',
+    character: 'W',
+    foreground: 'teal',
+    maxHp: 90,
+    attackValue: 70,
+    defenseValue: 70,
+    level: 20,
     sightRadius: 6,
     mixins: [Game.Mixins.GluttonySinActor, Game.Mixins.Sight, Game.Mixins.Attacker,
             Game.Mixins.Destructible, Game.Mixins.ExperienceGainer]

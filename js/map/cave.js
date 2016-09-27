@@ -3,11 +3,18 @@ Game.Map.Cave = function(tiles, player){
 	console.log(Game.EntityRepository.create('Gluttony Sin'));
 	this.addEntityAtRandomPosition(player, 0);
 	this.addEntityAtRandomPosition(Game.EntityRepository.create('Gluttony Sin'), 0);
+	this.addEntityAtRandomPosition(Game.EntityRepository.create('Lust Sin'), 1);
+	this.addEntityAtRandomPosition(Game.EntityRepository.create('Sloth Sin'), 2);
+	this.addEntityAtRandomPosition(Game.EntityRepository.create('Greed Sin'), 3);
+	this.addEntityAtRandomPosition(Game.EntityRepository.create('Envy Sin'), 4);
+	this.addEntityAtRandomPosition(Game.EntityRepository.create('Pride Sin'), 5);
+	this.addEntityAtRandomPosition(Game.EntityRepository.create('Wrath Sin'), 6);
 
 	for(var z = 0; z < this._depth; z++){
 		for(var i = 0; i < 15; i++){
 			var entity = Game.EntityRepository.createRandom();
-			if(entity._name != 'Gluttony Sin'){
+			if(entity._name != 'Gluttony Sin' && entity._name != 'Lust Sin' && entity._name != 'Sloth Sin'
+             && entity._name != 'Pride Sin' && entity._name != 'Wrath Sin' && entity._name != 'Greed Sin' && entity._name != 'Envy Sin'){
 				this.addEntityAtRandomPosition(entity, z);
 			}
 			if(entity.hasMixin('ExperienceGainer')){

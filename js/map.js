@@ -21,7 +21,8 @@ Game.Map = function(tiles, player){
     for(var z = 0; z < this._depth; z++) {
         for (var i = 0; i < 15; i++) {
             var entity = Game.EntityRepository.createRandom();
-            if(entity._name != 'Gluttony Sin'){
+            if(entity._name != 'Gluttony Sin' && entity._name != 'Lust Sin' && entity._name != 'Sloth Sin'
+             && entity._name != 'Pride Sin' && entity._name != 'Wrath Sin' && entity._name != 'Greed Sin' && entity._name != 'Envy Sin'){
                 this.addEntityAtRandomPosition(entity, z);
             }
             if(entity.hasMixin('ExperienceGainer')){

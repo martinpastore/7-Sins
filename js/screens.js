@@ -30,7 +30,7 @@ Game.Screen.playScreen = {
     enter: function(type) {
         var width = 100;
         var height = 48;
-        var depth = 6;
+        var depth = 7;
 
         var tiles = new Game.Builder(width, height, depth).getTiles();
         if(type == "mage"){
