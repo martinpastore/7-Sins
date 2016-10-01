@@ -52,7 +52,6 @@ Game.Screen.playScreen = {
             this._subScreen.render(display);
             return;
         }
-        console.log(this._player);
         var screenWidth = Game.getScreenWidth();
         var screenHeight = Game.getScreenHeight();
 

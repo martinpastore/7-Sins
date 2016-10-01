@@ -113,7 +113,7 @@ Game.Entity.prototype.tryMove = function(x, y, z, map){
             Game.sendMessage(this, "You enter to the DEMON cavern!");
             this.setPosition(x, y, z);
         }else{
-            Game.sendMessage(this, "You need all the Sins Keys to fight with DEMON.");
+            Game.sendMessage(this, "You need " + (7 - this._keys) + " Sins Keys to fight with DEMON.");
         }
     }else if(z > this.getZ()){
         if(tile != Game.Tile.stairsDownTile){
