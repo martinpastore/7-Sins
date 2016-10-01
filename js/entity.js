@@ -13,6 +13,7 @@ Game.Entity = function(properties){
     this._speed = properties['speed'] || 1000;
     this._map = null;
     this._type = properties['type'] || null;
+    this._keys = properties['keys'] || 0;
 
     this._attachedMixins = {};
 
@@ -108,8 +109,12 @@ Game.Entity.prototype.tryMove = function(x, y, z, map){
             this.setPosition(x, y, z);
         }
     }else if(z > this.getZ() && tile == Game.Tile.doorToCavernTile){
-        Game.sendMessage(this, "You enter to the DEMON cavern!");
-        this.setPosition(x, y, z);
+        if(this._keys === 7) {
+            Game.sendMessage(this, "You enter to the DEMON cavern!");
+            this.setPosition(x, y, z);
+        }else{
+            Game.sendMessage(this, "You need all the Sins Keys to fight with DEMON.");
+        }
     }else if(z > this.getZ()){
         if(tile != Game.Tile.stairsDownTile){
             Game.sendMessage(this, "You can't go down here!");

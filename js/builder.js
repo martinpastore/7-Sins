@@ -152,7 +152,6 @@ Game.Builder.prototype._connectRegions = function(z, r1, r2){
     if(overlap.length == 0){
         return false;
     }
-    console.log(z);
     var point = overlap[0];
     this._tiles[z][point.x][point.y] = z < 6 ? Game.Tile.stairsDownTile : Game.Tile.floorTile;
     this._tiles[z+1][point.x][point.y] = Game.Tile.stairsUpTile;

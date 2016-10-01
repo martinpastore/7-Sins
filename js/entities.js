@@ -43,8 +43,14 @@ Game.Mixins.Destructible = {
     },
     takeDamage: function(attacker, damage){
         this._hp -= damage;
-
         if(this._hp <= 0){
+
+            if(this.getName() == 'Gluttony Sin' || this.getName() == 'Lust Sin' || this.getName() == 'Sloth Sin' ||
+                this.getName() == 'Envy Sin' || this.getName() == 'Wrath Sin' || this.getName() == 'Greed Sin' ||
+                this.getName() == 'Pride Sin') {
+                attacker._keys++;
+            }
+
             Game.sendMessage(attacker, 'You kill the %s!', [this.getName()]);
             if(this.hasMixin(Game.Mixins.PlayerActor)) {
                 this.act();
@@ -513,6 +519,7 @@ Game.PlayerTemplate = {
     maxHp: 40,
     attackValue: 10,
     sightRadius: 6,
+    keys: 0,
     mixins: [Game.Mixins.PlayerActor, Game.Mixins.Attacker, Game.Mixins.InventoryHolder,
             Game.Mixins.Destructible, Game.Mixins.Sight, Game.Mixins.MessageRecipient, Game.Mixins.Equipper,
             Game.Mixins.ExperienceGainer, Game.Mixins.PlayerStatGainer]
@@ -525,6 +532,7 @@ Game.WarriorTemplate = {
     maxHp: 60,
     attackValue: 8,
     sightRadius: 6,
+    keys: 0,
     mixins: [Game.Mixins.PlayerActor, Game.Mixins.Attacker, Game.Mixins.InventoryHolder,
             Game.Mixins.Destructible, Game.Mixins.Sight, Game.Mixins.MessageRecipient, Game.Mixins.Equipper,
             Game.Mixins.ExperienceGainer, Game.Mixins.PlayerStatGainer]
@@ -537,6 +545,7 @@ Game.MageTemplate = {
     maxHp: 20,
     attackValue: 10,
     sightRadius: 6,
+    keys: 0,
     mixins: [Game.Mixins.PlayerActor, Game.Mixins.Attacker, Game.Mixins.InventoryHolder,
             Game.Mixins.Destructible, Game.Mixins.Sight, Game.Mixins.MessageRecipient, Game.Mixins.Equipper,
             Game.Mixins.ExperienceGainer, Game.Mixins.PlayerStatGainer]
@@ -549,6 +558,7 @@ Game.ArcherTemplate = {
     maxHp: 25,
     attackValue: 9,
     sightRadius: 6,
+    keys: 0,
     mixins: [Game.Mixins.PlayerActor, Game.Mixins.Attacker, Game.Mixins.InventoryHolder,
             Game.Mixins.Destructible, Game.Mixins.Sight, Game.Mixins.MessageRecipient, Game.Mixins.Equipper,
             Game.Mixins.ExperienceGainer, Game.Mixins.PlayerStatGainer]
@@ -561,6 +571,7 @@ Game.NecroTemplate = {
     maxHp: 20,
     attackValue: 10,
     sightRadius: 6,
+    keys: 0,
     mixins: [Game.Mixins.PlayerActor, Game.Mixins.Attacker, Game.Mixins.InventoryHolder,
             Game.Mixins.Destructible, Game.Mixins.Sight, Game.Mixins.MessageRecipient, Game.Mixins.Equipper,
             Game.Mixins.ExperienceGainer, Game.Mixins.PlayerStatGainer]
