@@ -12,6 +12,7 @@ Game.Entity = function(properties){
     this._z = properties['z'] || 0;
     this._speed = properties['speed'] || 1000;
     this._map = null;
+    this._type = properties['type'] || null;
 
     this._attachedMixins = {};
 

@@ -437,9 +437,14 @@ Game.Screen.wieldScreen = new Game.Screen.ItemListScreen({
             Game.sendMessage(this._player, "You are empty handed.");
         }else{
             var item = selectedItems[keys[0]];
-            this._player.unequip(item);
-            this._player.wield(item);
-            Game.sendMessage(this._player, "You are wielding %s.", [item.describeA()]);
+            console.log(this._player)
+            if(item._typeWeapon === this._player._type) {
+                this._player.unequip(item);
+                this._player.wield(item);
+                Game.sendMessage(this._player, "You are wielding %s.", [item.describeA()]);
+            }else{
+                Game.sendMessage(this._player, "You can't wield this weapon.");
+            }
         }
         return true;
     }

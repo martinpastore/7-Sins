@@ -521,6 +521,7 @@ Game.PlayerTemplate = {
 Game.WarriorTemplate = {
     character: '@',
     foreground: 'blue',
+    type: 'warrior',
     maxHp: 60,
     attackValue: 8,
     sightRadius: 6,
@@ -532,6 +533,7 @@ Game.WarriorTemplate = {
 Game.MageTemplate = {
     character: '@',
     foreground: 'red',
+    type: 'mage',
     maxHp: 20,
     attackValue: 10,
     sightRadius: 6,
@@ -543,6 +545,7 @@ Game.MageTemplate = {
 Game.ArcherTemplate = {
     character: '@',
     foreground: 'green',
+    type: 'archer',
     maxHp: 25,
     attackValue: 9,
     sightRadius: 6,
@@ -554,6 +557,7 @@ Game.ArcherTemplate = {
 Game.NecroTemplate = {
     character: '@',
     foreground: '#DA81F5',
+    type: 'necro',
     maxHp: 20,
     attackValue: 10,
     sightRadius: 6,

@@ -28,6 +28,7 @@ Game.ItemRepository.define('dagger', {
 	foreground: 'yellow',
 	attackValue: 5,
 	wieldable: true,
+	typeWeapon: 'warrior',
 	mixins: [Game.ItemMixins.Equippable]
 });
 
@@ -37,6 +38,7 @@ Game.ItemRepository.define('sword', {
 	foreground: 'gray',
 	attackValue: 10,
 	wieldable: true,
+	typeWeapon: 'warrior',
 	mixins: [Game.ItemMixins.Equippable]
 });
 
@@ -46,6 +48,7 @@ Game.ItemRepository.define('staff', {
 	foreground: 'gray',
 	attackValue: 8,
 	wieldable: true,
+	typeWeapon: 'mage',
 	mixins: [Game.ItemMixins.Equippable]
 });
 
@@ -55,6 +58,7 @@ Game.ItemRepository.define('bow', {
 	foreground: 'brown',
 	attackValue: 8,
 	wieldable: true,
+	typeWeapon: 'archer',
 	mixins: [Game.ItemMixins.Equippable]
 });
 
@@ -64,6 +68,17 @@ Game.ItemRepository.define('magic', {
 	foreground: 'pink',
 	attackValue: 9,
 	wieldable: true,
+	typeWeapon: 'mage',
+	mixins: [Game.ItemMixins.Equippable]
+});
+
+Game.ItemRepository.define('necro magic', {
+	name: 'necro magic',
+	character: '&',
+	foreground: 'purple',
+	attackValue: 9,
+	wieldable: true,
+	typeWeapon: 'necro',
 	mixins: [Game.ItemMixins.Equippable]
 });
 
