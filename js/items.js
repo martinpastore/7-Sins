@@ -9,6 +9,7 @@ Game.ItemRepository.define('life', {
     foreground: 'red',
     wearable: false,
     wieldable: false,
+	healing: true,
     mixins: [Game.ItemMixins.Equippable]
 });
 

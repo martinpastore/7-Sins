@@ -367,9 +367,17 @@ Game.Screen.ItemListScreen.prototype.handleInput = function(inputType, inputData
         }else if(this._canSelectItem && this._hasNoItemOption && inputData.keyCode === ROT.VK_0){
             this._selectedIndices = {};
             this.executeOkFunction();
-        }else if(this._canSelectItem && inputData.keyCode >= ROT.VK_A && inputData.keyCode <= ROT.VK_Z){
+        }else if(inputData.keyCode >= ROT.VK_A && inputData.keyCode <= ROT.VK_Z){
             var index = inputData.keyCode - ROT.VK_A;
             if(this._items[index]){
+                if(this._items[index].isHealing()){
+                    if((this._player._hp + 5) < this._player._maxHp) {
+                        this._player._hp += 5;
+                    }else{
+                        this._player._hp = this._player._maxHp;
+                    }
+                    this._player.removeItem(index);
+                }
                 if(this._canSelectMultipleItems){
                     if(this._selectedIndices[index]){
                         delete this._selectedIndices[index];
