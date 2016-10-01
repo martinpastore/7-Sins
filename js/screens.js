@@ -371,12 +371,15 @@ Game.Screen.ItemListScreen.prototype.handleInput = function(inputType, inputData
             var index = inputData.keyCode - ROT.VK_A;
             if(this._items[index]){
                 if(this._items[index].isHealing()){
-                    if((this._player._hp + 5) < this._player._maxHp) {
+                    if(this._player._hp === this._player._maxHp){
+                        Game.sendMessage(this._player, "You are healthy!");
+                    }else if((this._player._hp + 5) < this._player._maxHp) {
                         this._player._hp += 5;
-                    }else{
+                        this._player.removeItem(index);
+                    }else if((this._player._hp + 5) > this._player._maxHp) {
                         this._player._hp = this._player._maxHp;
+                        this._player.removeItem(index);
                     }
-                    this._player.removeItem(index);
                 }
                 if(this._canSelectMultipleItems){
                     if(this._selectedIndices[index]){
