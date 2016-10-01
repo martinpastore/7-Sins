@@ -107,8 +107,11 @@ Game.Entity.prototype.tryMove = function(x, y, z, map){
             Game.sendMessage(this, "You ascend to level %d", [z + 1]);
             this.setPosition(x, y, z);
         }
+    }else if(z > this.getZ() && tile == Game.Tile.doorToCavernTile){
+        Game.sendMessage(this, "You enter to the DEMON cavern!");
+        this.setPosition(x, y, z);
     }else if(z > this.getZ()){
-        if(tile != Game.Tile.stairsDownTile && tile != Game.Tile.doorToCavernTile){
+        if(tile != Game.Tile.stairsDownTile){
             Game.sendMessage(this, "You can't go down here!");
         }else{
             Game.sendMessage(this, "You descend to level %d", [z + 1]);

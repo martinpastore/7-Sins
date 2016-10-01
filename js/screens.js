@@ -228,13 +228,6 @@ Game.Screen.playScreen = {
                     this.setSubScreen(Game.Screen.pickupScreen);
                     return;
                 }
-            }else if(inputData.keyCode === ROT.VK_O){
-                var tile = this._player.getMap().getTile(this._player.getX(), this._player.getY(), this._player.getZ());
-                if(tile === Game.Tile.doorToCavernTile) {
-                    this.move(0,0,1);
-                }else{
-                    Game.sendMessage(this._player, "There is not a door");
-                }
             }else{
                 return;
             }

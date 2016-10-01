@@ -65,7 +65,7 @@ Game.Map.prototype.getTile = function(x, y, z){
     if(x < 0 || x >= this._width || y < 0 || y >= this._height || z < 0 || z >= this._depth){
         return Game.Tile.nullTile;
     }else{
-        return this._tiles[z][x][y] || Game.Tile.nullTile;
+        return this._tiles[z][x][y] || Game.Tile.floorTile;
     }
 }
 
