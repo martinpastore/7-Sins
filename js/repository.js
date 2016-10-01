@@ -9,9 +9,7 @@ Game.Repository = function(name, ctor){
 }
 
 Game.Repository.prototype.define = function(name, template, options){
-    if(name != 'Demon'){
         return this._templates[name] = template;
-    }
 }
 
 Game.Repository.prototype.create = function(name){

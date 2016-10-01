@@ -54,7 +54,7 @@ Game.Tile.stairsDownTile = new Game.Tile({
 });
 
 Game.Tile.doorToCavernTile = new Game.Tile({
-  character: 'D',
+  character: '+',
   foreground: 'white',
   isWalkable: true,
   blocksLight: false
