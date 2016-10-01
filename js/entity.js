@@ -108,9 +108,7 @@ Game.Entity.prototype.tryMove = function(x, y, z, map){
             this.setPosition(x, y, z);
         }
     }else if(z > this.getZ()){
-        if(tile === Game.Tile.doorToCavernTile && this.hasMixin(Game.Mixins.PlayerActor)){
-            this.switchMap(new Game.Map.BossCavern());
-        }else if(tile != Game.Tile.stairsDownTile){
+        if(tile != Game.Tile.stairsDownTile && tile != Game.Tile.doorToCavernTile){
             Game.sendMessage(this, "You can't go down here!");
         }else{
             Game.sendMessage(this, "You descend to level %d", [z + 1]);

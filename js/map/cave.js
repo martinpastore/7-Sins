@@ -1,6 +1,5 @@
 Game.Map.Cave = function(tiles, player){
 	Game.Map.call(this, tiles, player);
-	console.log(Game.EntityRepository.create('Gluttony Sin'));
 	this.addEntityAtRandomPosition(player, 0);
 	this.addEntityAtRandomPosition(Game.EntityRepository.create('Gluttony Sin'), 0);
 	this.addEntityAtRandomPosition(Game.EntityRepository.create('Lust Sin'), 1);
@@ -9,6 +8,7 @@ Game.Map.Cave = function(tiles, player){
 	this.addEntityAtRandomPosition(Game.EntityRepository.create('Envy Sin'), 4);
 	this.addEntityAtRandomPosition(Game.EntityRepository.create('Pride Sin'), 5);
 	this.addEntityAtRandomPosition(Game.EntityRepository.create('Wrath Sin'), 6);
+	this.addEntityAtRandomPosition(Game.EntityRepository.create('Demon'), 7);
 
 	for(var z = 0; z < this._depth; z++){
 		for(var i = 0; i < 15; i++){
@@ -35,7 +35,7 @@ Game.Map.Cave = function(tiles, player){
 	}
 
 	var doorPosition = this.getRandomFloorPosition(this._depth - 1);
-	this._tiles[this._depth - 1][doorPosition.x][doorPosition.y] = Game.Tile.doorToCavernTile;
+	this._tiles[this._depth - 2][doorPosition.x][doorPosition.y] = Game.Tile.doorToCavernTile;
 };
 
 Game.Map.Cave.extend(Game.Map);
