@@ -90,33 +90,6 @@ Game.Mixins.PlayerActor = {
     }
 }
 
-Game.Mixins.FungusActor = {
-    name: 'FungusActor',
-    groupName: 'Actor',
-    init: function(){
-      this._growthsRemaining = 5;
-    },
-    act: function(){
-        if(this._growthsRemaining > 0){
-            if(Math.random() <= 0.02){
-                var xOffset = Math.floor(Math.random() * 3) - 1;
-                var yOffset = Math.floor(Math.random() * 3) - 1;
-
-                if(xOffset != 0 || yOffset != 0){
-                    if(this.getMap().isEmptyFloor(this.getX() + xOffset, this.getY() +  yOffset, this.getZ())){
-                        var entity = new Game.Entity('Fungus');
-                        entity.setPosition(this.getX() + xOffset, this.getY() + yOffset, this.getZ());
-                        this.getMap().addEntity(entity);
-                        this._growthsRemaining--;
-
-                        Game.sendMessageNearby(this.getMap(), entity.getX(), entity.getY(), entity.getZ(),'The fungus is spreading!');
-                    }
-                }
-            }
-        }
-    }
-}
-
 Game.Mixins.Attacker = {
     name: 'Attacker',
     groupName: 'Attacker',
@@ -578,17 +551,6 @@ Game.NecroTemplate = {
 }
 
 Game.EntityRepository = new Game.Repository('entities', Game.Entity);
-
-Game.EntityRepository.define('Fungus',{
-    name: 'Fungus',
-    character: 'F',
-    foreground: 'green',
-    speed: 250,
-    maxHp: 10,
-    mixins: [Game.Mixins.FungusActor, Game.Mixins.Destructible, Game.Mixins.ExperienceGainer, Game.Mixins.RandomStatGainer]
-},{
-    disableRandomCreation: false
-})
 
 Game.EntityRepository.define('Bat',{
     name: 'Bat',

@@ -376,10 +376,10 @@ Game.Screen.ItemListScreen.prototype.handleInput = function(inputType, inputData
                 if(this._items[index].isHealing()){
                     if(this._player._hp === this._player._maxHp){
                         Game.sendMessage(this._player, "You are healthy!");
-                    }else if((this._player._hp + 5) <= this._player._maxHp) {
-                        this._player._hp += 5;
+                    }else if((this._player._hp + 20) <= this._player._maxHp) {
+                        this._player._hp += 20;
                         this._player.removeItem(index);
-                    }else if((this._player._hp + 5) > this._player._maxHp) {
+                    }else if((this._player._hp + 20) > this._player._maxHp) {
                         this._player._hp = this._player._maxHp;
                         this._player.removeItem(index);
                     }
