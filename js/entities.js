@@ -450,7 +450,7 @@ Game.Mixins.GluttonySinActor = Game.extend(Game.Mixins.TaskActor, {
         this._hasGrownArm = true;
         this.increaseAttackValue(5);
 
-        Game.sendMessageNearby(this.getMap(), this.getX(), this.getY(), this.getZ(), 'Attack of Gluttony Sin increase!');
+        Game.sendMessageNearby(this.getMap(), this.getX(), this.getY(), this.getZ(), 'Attack of ' + this.getName() + ' increase!');
     },
     spawnSkeleton: function(){
         var xOffset = Math.floor(Math.random() * 3) - 1;
@@ -735,10 +735,11 @@ Game.EntityRepository.define('Demon', {
     character: 'Ð',
     foreground: 'darkred',
     maxHp: 300,
-    attackValue: 100,
-    defenseValue: 100,
-    level: 50,
+    attackValue: 80,
+    defenseValue: 80,
+    level: 35,
     sightRadius: 20,
+    speed: 2500,
     mixins: [Game.Mixins.GluttonySinActor, Game.Mixins.Sight, Game.Mixins.Attacker,
             Game.Mixins.Destructible, Game.Mixins.ExperienceGainer]
 },{
