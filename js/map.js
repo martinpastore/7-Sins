@@ -195,7 +195,7 @@ Game.Map.prototype.isExplored = function(x, y, z){
 }
 
 Game.Map.prototype.updateEntityPosition = function(entity, oldX, oldY, oldZ){
-    if(oldX){
+    if(typeof oldX === 'number'){
         var oldKey = oldX + ',' + oldY + ',' + oldZ;
         if(this._entities[oldKey] == entity){
             delete this._entities[oldKey];
