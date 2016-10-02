@@ -51,6 +51,10 @@ Game.Mixins.Destructible = {
                 attacker._keys++;
             }
 
+            if(this.getName() == 'Demon'){
+                Game.switchScreen(Game.Screen.winScreen);
+            }
+
             Game.sendMessage(attacker, 'You kill the %s!', [this.getName()]);
             if(this.hasMixin(Game.Mixins.PlayerActor)) {
                 this.act();
