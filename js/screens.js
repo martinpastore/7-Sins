@@ -257,13 +257,11 @@ Game.Screen.winScreen = {
     enter: function() { console.log("Win game"); },
     exit: function() { console.log("Exit"); },
     render: function(display){
-        for(var i = 0; i < 22; i++){
             var r = Math.round(Math.random() * 255);
             var g = Math.round(Math.random() * 255);
             var b = Math.round(Math.random() * 255);
             var background = ROT.Color.toRGB([r, g, b]);
-            display.drawText(2, i + 1, "%b{" + background + "}You Win!");
-        }
+            display.drawText(2, 1, "%b{" + background + "}You Win!");
     },
     handleInput: function(inputType, inputData){
         //
@@ -274,10 +272,8 @@ Game.Screen.loseScreen = {
     enter: function() { console.log("Lose game"); },
     exit: function() { console.log("Exit"); },
     render: function(display){
-        for(var i = 0; i < 22; i++){
             var background = ROT.Color.toRGB([255, 0, 0]);
-            display.drawText(2, i + 1, "%b{" + background + "}You Died!");
-        }
+            display.drawText(2, 1, "%b{" + background + "}You Died!");
     },
     handleInput: function(inputType, inputData){
         //
