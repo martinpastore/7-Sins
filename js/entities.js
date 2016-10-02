@@ -459,11 +459,11 @@ Game.Mixins.GluttonySinActor = Game.extend(Game.Mixins.TaskActor, {
         if(!this.getMap().isEmptyFloor(this.getX() + xOffset, this.getY() + yOffset, this.getZ())){
             return;
         }
-        var zombie = Game.EntityRepository.create('Zombie');
-        zombie.setX(this.getX() + xOffset);
-        zombie.setY(this.getY() + yOffset);
-        zombie.setZ(this.getZ());
-        this.getMap().addEntity(zombie);
+        var minion = Game.EntityRepository.create('Minion');
+        minion.setX(this.getX() + xOffset);
+        minion.setY(this.getY() + yOffset);
+        minion.setZ(this.getZ());
+        this.getMap().addEntity(minion);
     }
 })
 
@@ -602,6 +602,21 @@ Game.EntityRepository.define('Skeleton', {
     maxHp: 5,
     attackValue: 4,
     defenseValue: 6,
+    speed: 500,
+    tasks: ['hunt', 'wander'],
+    mixins: [Game.Mixins.TaskActor, Game.Mixins.Attacker, Game.Mixins.Destructible, Game.Mixins.Sight,
+            Game.Mixins.ExperienceGainer, Game.Mixins.RandomStatGainer]
+},{
+    disableRandomCreation: false
+})
+
+Game.EntityRepository.define('Minion', {
+    name: 'Minion',
+    character: '¤',
+    foreground: 'darkgreen',
+    maxHp: 3,
+    attackValue: 2,
+    defenseValue: 2,
     speed: 500,
     tasks: ['hunt', 'wander'],
     mixins: [Game.Mixins.TaskActor, Game.Mixins.Attacker, Game.Mixins.Destructible, Game.Mixins.Sight,
