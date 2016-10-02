@@ -261,7 +261,7 @@ Game.Screen.winScreen = {
             var g = Math.round(Math.random() * 255);
             var b = Math.round(Math.random() * 255);
             var background = ROT.Color.toRGB([r, g, b]);
-            display.drawText(2, 1, "%b{" + background + "}You Win!");
+            display.drawText(2, 1, "%b{" + background + "}After fight with your demons, you can be free!");
     },
     handleInput: function(inputType, inputData){
         //
