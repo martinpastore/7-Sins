@@ -44,7 +44,6 @@ var Game = {
 
         this._currentScreen = screen;
         if(!this._currentScreen !== null){
-            console.log(this._type);
             this._currentScreen.enter(this._type);
             this.refresh();
         }
@@ -60,7 +59,6 @@ var Game = {
 }
 
 window.onclick = function(e){
-    console.log("GameInit::Click");
     if(!ROT.isSupported()){
         console.log("This browser don't support ROT.JS");
     }else{
