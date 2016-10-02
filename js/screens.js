@@ -264,7 +264,11 @@ Game.Screen.winScreen = {
             display.drawText(2, 1, "%c{GREEN}After fight with your demons, you can be free!");
     },
     handleInput: function(inputType, inputData){
-        //
+        if(inputType === 'keydown'){
+            if(inputData.keyCode === ROT.VK_RETURN || inputData.keyCode === ROT.VK_ESCAPE){
+                location.reload();
+            }
+        }
     }
 }
 
@@ -276,7 +280,11 @@ Game.Screen.loseScreen = {
             display.drawText(2, 1, "%c{RED}You Died!");
     },
     handleInput: function(inputType, inputData){
-        //
+        if(inputType === 'keydown'){
+            if(inputData.keyCode === ROT.VK_RETURN || inputData.keyCode === ROT.VK_ESCAPE){
+                location.reload();
+            }
+        }
     }
 }
 
