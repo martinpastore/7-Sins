@@ -261,7 +261,7 @@ Game.Screen.winScreen = {
             var g = Math.round(Math.random() * 255);
             var b = Math.round(Math.random() * 255);
             var background = ROT.Color.toRGB([r, g, b]);
-            display.drawText(2, 1, "%b{" + background + "}After fight with your demons, you can be free!");
+            display.drawText(2, 1, "%c{GREEN}After fight with your demons, you can be free!");
     },
     handleInput: function(inputType, inputData){
         //
@@ -273,7 +273,7 @@ Game.Screen.loseScreen = {
     exit: function() { console.log("Exit"); },
     render: function(display){
             var background = ROT.Color.toRGB([255, 0, 0]);
-            display.drawText(2, 1, "%b{" + background + "}You Died!");
+            display.drawText(2, 1, "%c{RED}You Died!");
     },
     handleInput: function(inputType, inputData){
         //
