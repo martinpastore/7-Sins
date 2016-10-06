@@ -138,7 +138,6 @@ Game.Screen.playScreen = {
         }
         document.getElementById("level").innerHTML = 'Level: ' + this._player.getLevel();
         document.getElementById("next").innerHTML = 'Next Level: ' + this._player.getExperience() + "/" + this._player.getNextLevelExperience();
-        this._weapon = null;
     },
     move: function(dX, dY, dZ){
         var newX = this._player.getX() + dX;
