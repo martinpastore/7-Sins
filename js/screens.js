@@ -52,6 +52,7 @@ Game.Screen.playScreen = {
             this._subScreen.render(display);
             return;
         }
+
         var screenWidth = Game.getScreenWidth();
         var screenHeight = Game.getScreenHeight();
 
@@ -119,7 +120,6 @@ Game.Screen.playScreen = {
         for(var i = 0; i < messages.length; i++){
             messageY += display.drawText(0, messageY, '%c{white}%b{black}' + messages[i]);
         }
-
         //var stats = '%c{white}%b{black}';
         stats = this._player.getHp() + '/' +  this._player.getMaxHp();
         document.getElementById("type").innerHTML = 'Character: ' + this._player._type.toUpperCase();
@@ -138,6 +138,7 @@ Game.Screen.playScreen = {
         }
         document.getElementById("level").innerHTML = 'Level: ' + this._player.getLevel();
         document.getElementById("next").innerHTML = 'Next Level: ' + this._player.getExperience() + "/" + this._player.getNextLevelExperience();
+        this._weapon = null;
     },
     move: function(dX, dY, dZ){
         var newX = this._player.getX() + dX;
