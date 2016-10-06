@@ -122,6 +122,7 @@ Game.Screen.playScreen = {
 
         //var stats = '%c{white}%b{black}';
         stats = this._player.getHp() + '/' +  this._player.getMaxHp();
+        document.getElementById("type").innerHTML = 'Character: ' + this._player._type.toUpperCase();
         document.getElementById("stats").innerHTML = 'HP: ' + stats;
         document.getElementById("attack").innerHTML = 'Attack: ' + this._player.getAttackValue();
         document.getElementById("defense").innerHTML = 'Defense: ' + this._player.getDefenseValue();

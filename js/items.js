@@ -52,13 +52,13 @@ Game.ItemRepository.define('staff', {
 	mixins: [Game.ItemMixins.Equippable]
 });
 
-Game.ItemRepository.define('bow', {
-	name: 'bow',
+Game.ItemRepository.define('katana', {
+	name: 'katana',
 	character: ')',
-	foreground: 'brown',
+	foreground: 'gray',
 	attackValue: 8,
 	wieldable: true,
-	typeWeapon: 'archer',
+	typeWeapon: 'swordman',
 	mixins: [Game.ItemMixins.Equippable]
 });
 

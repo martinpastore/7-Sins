@@ -531,7 +531,7 @@ Game.MageTemplate = {
 Game.ArcherTemplate = {
     character: '@',
     foreground: 'green',
-    type: 'archer',
+    type: 'swordman',
     maxHp: 25,
     attackValue: 9,
     sightRadius: 6,
