@@ -126,6 +126,38 @@ Game.Mixins.Attacker = {
             Game.sendMessage(this, 'You strike the %s for %d damage!', [target.getName(), damage]);
             Game.sendMessage(this, 'The %s strikes you for %d damage', [this.getName(), damage]);
 
+            if(this.hasMixin('PlayerActor')){
+                if(this.getWeapon() != null){
+                    if(this.getWeapon().getWeaponHp() > 0){
+                        this.getWeapon()._weaponHp -= 3;
+                    }else{
+                        for(var i = 0; i < this._items.length; i++){
+                                if(this._items[i] != undefined && this._items[i] != null){
+                                    if(this._items[i]._weaponHp <= 0){
+                                        Game.sendMessage(this, 'Your %s broke!', [this._items[i]._name]);
+                                        this.removeItem(i);
+                                    }
+                                }
+                            }
+                        this._weapon = null;
+                    }
+                }
+                if(this.getArmor() != null){
+                    if(this.getArmor().getWearHp() > 0){
+                        this.getArmor()._wearHp -= 3;
+                    }else{
+                        for(var i = 0; i < this._items.length; i++){
+                                if(this._items[i] != undefined && this._items[i] != null){
+                                    if(this._items[i]._wearHp <= 0){
+                                        Game.sendMessage(this, 'Your %s broke!', [this._items[i]._name]);
+                                        this.removeItem(i);
+                                    }
+                                }
+                            }
+                        this._armor = null;
+                    }
+                }
+            }
             target.takeDamage(this, damage);
         }
     }
@@ -588,6 +620,20 @@ Game.EntityRepository.define('Zombie', {
     maxHp: 6,
     attackValue: 4,
     defenseValue: 5,
+    tasks: ['hunt', 'wander'],
+    mixins: [Game.Mixins.TaskActor, Game.Mixins.Attacker, Game.Mixins.Destructible, Game.Mixins.Sight,
+            Game.Mixins.ExperienceGainer, Game.Mixins.RandomStatGainer]
+},{
+    disableRandomCreation: false
+})
+
+Game.EntityRepository.define('Little Demon', {
+    name: 'Little Demon',
+    character: 'd',
+    foreground: 'red',
+    maxHp: 4,
+    attackValue: 6,
+    defenseValue: 2,
     tasks: ['hunt', 'wander'],
     mixins: [Game.Mixins.TaskActor, Game.Mixins.Attacker, Game.Mixins.Destructible, Game.Mixins.Sight,
             Game.Mixins.ExperienceGainer, Game.Mixins.RandomStatGainer]

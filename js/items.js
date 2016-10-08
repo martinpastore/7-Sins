@@ -29,6 +29,7 @@ Game.ItemRepository.define('dagger', {
 	attackValue: 5,
 	wieldable: true,
 	typeWeapon: 'warrior',
+	weaponHp: 5,
 	mixins: [Game.ItemMixins.Equippable]
 });
 
@@ -39,6 +40,7 @@ Game.ItemRepository.define('sword', {
 	attackValue: 10,
 	wieldable: true,
 	typeWeapon: 'warrior',
+	weaponHp: 20,
 	mixins: [Game.ItemMixins.Equippable]
 });
 
@@ -49,6 +51,7 @@ Game.ItemRepository.define('staff', {
 	attackValue: 8,
 	wieldable: true,
 	typeWeapon: 'mage',
+	weaponHp: 15,
 	mixins: [Game.ItemMixins.Equippable]
 });
 
@@ -59,6 +62,7 @@ Game.ItemRepository.define('katana', {
 	attackValue: 8,
 	wieldable: true,
 	typeWeapon: 'swordman',
+	weaponHp: 15,
 	mixins: [Game.ItemMixins.Equippable]
 });
 
@@ -69,6 +73,7 @@ Game.ItemRepository.define('magic', {
 	attackValue: 9,
 	wieldable: true,
 	typeWeapon: 'mage',
+	weaponHp: 10,
 	mixins: [Game.ItemMixins.Equippable]
 });
 
@@ -79,6 +84,7 @@ Game.ItemRepository.define('necro magic', {
 	attackValue: 9,
 	wieldable: true,
 	typeWeapon: 'necro',
+	weaponHp: 10,
 	mixins: [Game.ItemMixins.Equippable]
 });
 
@@ -88,6 +94,7 @@ Game.ItemRepository.define('tunic', {
 	foreground: 'brown',
 	defenseValue: 4,
 	wearable: true,
+	wearHp: 20,
 	mixins: [Game.ItemMixins.Equippable]
 });
 
@@ -97,6 +104,7 @@ Game.ItemRepository.define('chainmail', {
 	foreground: 'lightgray',
 	defenseValue: 6,
 	wearable: true,
+	wearHp: 30,
 	mixins: [Game.ItemMixins.Equippable]
 });
 
@@ -106,6 +114,7 @@ Game.ItemRepository.define('ironmail', {
 	foreground: 'darkgray',
 	defenseValue: 8,
 	wearable: true,
+	wearHp: 50,
 	mixins: [Game.ItemMixins.Equippable]
 });
 

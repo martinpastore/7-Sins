@@ -9,6 +9,8 @@ Game.ItemMixins.Equippable = {
 		this._wearable = template['wearable'] || false;
 		this._healing = template['healing'] || false;
 		this._typeWeapon = template['typeWeapon'] || null;
+		this._weaponHp = template['weaponHp'] || 20;
+		this._wearHp = template['wearHp'] || 20;
 	},
 	getAttackValue: function(){
 		return this._attackValue;
@@ -27,5 +29,11 @@ Game.ItemMixins.Equippable = {
 	},
 	isTypeWeapon: function(){
 		return this._typeWeapon;
+	},
+	getWeaponHp: function(){
+		return this._weaponHp;
+	},
+	getWearHp: function(){
+		return this._wearHp;
 	}
 }
