@@ -780,7 +780,7 @@ Game.EntityRepository.define('Demon', {
     name: 'Demon',
     character: 'Ð',
     foreground: 'darkred',
-    maxHp: 300,
+    maxHp: 150,
     attackValue: 80,
     defenseValue: 80,
     level: 35,
