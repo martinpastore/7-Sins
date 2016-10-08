@@ -134,7 +134,7 @@ Game.Mixins.Attacker = {
                         for(var i = 0; i < this._items.length; i++){
                                 if(this._items[i] != undefined && this._items[i] != null){
                                     if(this._items[i]._weaponHp <= 0){
-                                        Game.sendMessage(this, 'Your %s broke!', [this._items[i]._name]);
+                                        Game.sendMessage(this, 'Your lose your %s!', [this._items[i]._name]);
                                         this.removeItem(i);
                                     }
                                 }
@@ -149,7 +149,7 @@ Game.Mixins.Attacker = {
                         for(var i = 0; i < this._items.length; i++){
                                 if(this._items[i] != undefined && this._items[i] != null){
                                     if(this._items[i]._wearHp <= 0){
-                                        Game.sendMessage(this, 'Your %s broke!', [this._items[i]._name]);
+                                        Game.sendMessage(this, 'You lose your %s!', [this._items[i]._name]);
                                         this.removeItem(i);
                                     }
                                 }
