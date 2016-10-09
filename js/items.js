@@ -15,7 +15,7 @@ Game.ItemRepository.define('life', {
 
 Game.ItemRepository.define('rock', {
     name: 'rock',
-    character: '*',
+    character: '•',
     foreground: 'lightgray',
     wearable: false,
     wieldable: false,
@@ -37,7 +37,64 @@ Game.ItemRepository.define('sword', {
 	name: 'sword',
 	character: '╬',
 	foreground: 'gray',
+	attackValue: 15,
+	wieldable: true,
+	typeWeapon: 'warrior',
+	weaponHp: 90,
+	mixins: [Game.ItemMixins.Equippable]
+});
+
+Game.ItemRepository.define('diamond sword', {
+	name: 'diamond sword',
+	character: '╬',
+	foreground: 'lightblue',
+	attackValue: 15,
+	wieldable: true,
+	typeWeapon: 'warrior',
+	weaponHp: 90,
+	mixins: [Game.ItemMixins.Equippable]
+});
+
+Game.ItemRepository.define('platinum sword', {
+	name: 'platinum sword',
+	character: '╬',
+	foreground: '#058C71',
 	attackValue: 10,
+	wieldable: true,
+	typeWeapon: 'warrior',
+	weaponHp: 90,
+	mixins: [Game.ItemMixins.Equippable]
+});
+
+
+Game.ItemRepository.define('gold sword', {
+	name: 'gold sword',
+	character: '╬',
+	foreground: 'yellow',
+	attackValue: 8,
+	wieldable: true,
+	typeWeapon: 'warrior',
+	weaponHp: 90,
+	mixins: [Game.ItemMixins.Equippable]
+});
+
+Game.ItemRepository.define('silver sword', {
+	name: 'silver sword',
+	character: '╬',
+	foreground: 'lightgray',
+	attackValue: 5,
+	wieldable: true,
+	typeWeapon: 'warrior',
+	weaponHp: 90,
+	mixins: [Game.ItemMixins.Equippable]
+});
+
+
+Game.ItemRepository.define('wood sword', {
+	name: 'wood sword',
+	character: '╬',
+	foreground: 'brown',
+	attackValue: 3,
 	wieldable: true,
 	typeWeapon: 'warrior',
 	weaponHp: 90,
@@ -55,6 +112,29 @@ Game.ItemRepository.define('staff', {
 	mixins: [Game.ItemMixins.Equippable]
 });
 
+Game.ItemRepository.define('scimitar', {
+	name: 'scimitar',
+	character: ')',
+	foreground: 'green',
+	attackValue: 11,
+	wieldable: true,
+	typeWeapon: 'swordman',
+	weaponHp: 60,
+	mixins: [Game.ItemMixins.Equippable]
+});
+
+Game.ItemRepository.define('machete', {
+	name: 'machete',
+	character: ')',
+	foreground: 'red',
+	attackValue: 6,
+	wieldable: true,
+	typeWeapon: 'swordman',
+	weaponHp: 60,
+	mixins: [Game.ItemMixins.Equippable]
+});
+
+
 Game.ItemRepository.define('katana', {
 	name: 'katana',
 	character: ')',
@@ -66,20 +146,75 @@ Game.ItemRepository.define('katana', {
 	mixins: [Game.ItemMixins.Equippable]
 });
 
-Game.ItemRepository.define('magic', {
-	name: 'magic',
+Game.ItemRepository.define('gay magic', {
+	name: 'gay magic',
 	character: '&',
 	foreground: 'pink',
-	attackValue: 9,
+	attackValue: 15,
 	wieldable: true,
 	typeWeapon: 'mage',
 	weaponHp: 50,
 	mixins: [Game.ItemMixins.Equippable]
 });
 
+Game.ItemRepository.define('fire magic', {
+	name: 'fire magic',
+	character: '&',
+	foreground: 'red',
+	attackValue: 10,
+	wieldable: true,
+	typeWeapon: 'mage',
+	weaponHp: 50,
+	mixins: [Game.ItemMixins.Equippable]
+});
+
+Game.ItemRepository.define('light magic', {
+	name: 'light magic',
+	character: '&',
+	foreground: 'lightyellow',
+	attackValue: 8,
+	wieldable: true,
+	typeWeapon: 'mage',
+	weaponHp: 50,
+	mixins: [Game.ItemMixins.Equippable]
+});
+
+Game.ItemRepository.define('wather magic', {
+	name: 'wather magic',
+	character: '&',
+	foreground: 'blue',
+	attackValue: 6,
+	wieldable: true,
+	typeWeapon: 'mage',
+	weaponHp: 50,
+	mixins: [Game.ItemMixins.Equippable]
+});
+
+Game.ItemRepository.define('zombie magic', {
+	name: 'zombie magic',
+	character: '$',
+	foreground: 'lightgreen',
+	attackValue: 5,
+	wieldable: true,
+	typeWeapon: 'necro',
+	weaponHp: 50,
+	mixins: [Game.ItemMixins.Equippable]
+});
+
+Game.ItemRepository.define('skeleton magic', {
+	name: 'skeleton magic',
+	character: '$',
+	foreground: 'white',
+	attackValue: 5,
+	wieldable: true,
+	typeWeapon: 'necro',
+	weaponHp: 50,
+	mixins: [Game.ItemMixins.Equippable]
+});
+
 Game.ItemRepository.define('necro magic', {
 	name: 'necro magic',
-	character: '&',
+	character: '$',
 	foreground: 'purple',
 	attackValue: 9,
 	wieldable: true,

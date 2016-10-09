@@ -613,6 +613,30 @@ Game.EntityRepository.define('Snake', {
     disableRandomCreation: false
 })
 
+Game.EntityRepository.define('Beetle', {
+    name: 'Beetle',
+    character: 'b',
+    foreground: 'gray',
+    maxHp: 2,
+    attackValue: 1,
+    mixins: [Game.Mixins.TaskActor, Game.Mixins.Attacker, Game.Mixins.Destructible,Game.Mixins.ExperienceGainer,
+            Game.Mixins.RandomStatGainer]
+},{
+    disableRandomCreation: false
+})
+
+Game.EntityRepository.define('Spider', {
+    name: 'Spider',
+    character: '*',
+    foreground: '#DA81F5',
+    maxHp: 2,
+    attackValue: 1,
+    mixins: [Game.Mixins.TaskActor, Game.Mixins.Attacker, Game.Mixins.Destructible,Game.Mixins.ExperienceGainer,
+            Game.Mixins.RandomStatGainer]
+},{
+    disableRandomCreation: false
+})
+
 Game.EntityRepository.define('Zombie', {
     name: 'Zombie',
     character: 'z',
