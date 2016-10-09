@@ -29,7 +29,7 @@ Game.Map.Cave = function(tiles, player){
 		}
 	}
 
-	var templates = ['dagger', 'sword', 'staff', 'tunic', 'chainmail', 'ironmail'];
+	var templates = ['dagger', 'sword', 'staff', 'tunic', 'chainmail', 'iron armor'];
 	for(var i = 0; i < templates.length; i++){
 		this.addItemAtRandomPosition(Game.ItemRepository.create(templates[i]), Math.floor(this._depth * Math.random()));
 	}

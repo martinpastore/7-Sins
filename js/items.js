@@ -243,8 +243,18 @@ Game.ItemRepository.define('chainmail', {
 	mixins: [Game.ItemMixins.Equippable]
 });
 
-Game.ItemRepository.define('ironmail', {
-	name: 'ironmail',
+Game.ItemRepository.define('gold armor', {
+	name: 'gold armor',
+	character: '▼',
+	foreground: 'darkyellow',
+	defenseValue: 7,
+	wearable: true,
+	wearHp: 80,
+	mixins: [Game.ItemMixins.Equippable]
+});
+
+Game.ItemRepository.define('iron armor', {
+	name: 'iron armor',
 	character: '▼',
 	foreground: 'darkgray',
 	defenseValue: 8,
@@ -253,8 +263,8 @@ Game.ItemRepository.define('ironmail', {
 	mixins: [Game.ItemMixins.Equippable]
 });
 
-Game.ItemRepository.define('platinummail', {
-	name: 'platinummail',
+Game.ItemRepository.define('platinum armor', {
+	name: 'platinum armor',
 	character: '▼',
 	foreground: '#058C71',
 	defenseValue: 10,
@@ -263,8 +273,8 @@ Game.ItemRepository.define('platinummail', {
 	mixins: [Game.ItemMixins.Equippable]
 });
 
-Game.ItemRepository.define('diamondmail', {
-	name: 'diamondmail',
+Game.ItemRepository.define('diamond armor', {
+	name: 'diamond armor',
 	character: '▼',
 	foreground: 'lightblue',
 	defenseValue: 12,
