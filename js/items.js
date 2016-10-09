@@ -16,7 +16,7 @@ Game.ItemRepository.define('life', {
 Game.ItemRepository.define('rock', {
     name: 'rock',
     character: '•',
-    foreground: 'lightgray',
+    foreground: 'white',
     wearable: false,
     wieldable: false,
     mixins: [Game.ItemMixins.Equippable]
@@ -253,3 +253,22 @@ Game.ItemRepository.define('ironmail', {
 	mixins: [Game.ItemMixins.Equippable]
 });
 
+Game.ItemRepository.define('platinummail', {
+	name: 'platinummail',
+	character: '▼',
+	foreground: '#058C71',
+	defenseValue: 10,
+	wearable: true,
+	wearHp: 100,
+	mixins: [Game.ItemMixins.Equippable]
+});
+
+Game.ItemRepository.define('diamondmail', {
+	name: 'diamondmail',
+	character: '▼',
+	foreground: 'lightblue',
+	defenseValue: 12,
+	wearable: true,
+	wearHp: 120,
+	mixins: [Game.ItemMixins.Equippable]
+});
