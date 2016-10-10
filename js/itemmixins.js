@@ -3,8 +3,8 @@ Game.ItemMixins = {};
 Game.ItemMixins.Equippable = {
 	name: 'Equippable',
 	init: function(template){
-		this._attackValue = template['attackValue'] || 0;
-		this._defenseValue = template['defenseValue'] || 0;
+		this._attackValue = template['attackValue'] + Math.round(Math.random() * 5) + 1 || 0;
+		this._defenseValue = template['defenseValue'] + Math.round(Math.random() * 5) + 1 || 0;
 		this._wieldable = template['wieldable'] || false;
 		this._wearable = template['wearable'] || false;
 		this._healing = template['healing'] || false;
